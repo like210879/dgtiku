@@ -58,6 +58,7 @@ main{
   overscroll-behavior-y:contain;
   -webkit-overflow-scrolling:touch;
 }
+main > *{flex:none}
 button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
 button:focus-visible,a:focus-visible{outline:2px solid var(--blue-2);outline-offset:2px}
 [hidden]{display:none!important}
@@ -443,22 +444,17 @@ function renderHome() {
     </div>
   </button>` : ''}
 
+  ${examing ? `
   <button class="continue examc" id="btnExamQuick">
     <div class="ring">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>
     </div>
     <div class="txt">
-      <div class="t">${examing
-        ? '继续考试 · 模拟考试 <span style="font-size:11px;font-weight:600;color:#8A6100;background:var(--yellow-soft);border-radius:4px;padding:1px 5px;margin-left:6px">已暂停</span>'
-        : '模拟考试'}</div>
-      <div class="d">${examing
-        ? '已答 ' + examDone + ' / ' + DB.exam.ids.length + ' 题 · 还剩 ' + mmss(DB.exam.left || 0)
-        : (DB.hist.length
-            ? '上次 ' + DB.hist[0].score + ' 分 · 答对 ' + DB.hist[0].correct + '/' + DB.hist[0].total + ' · 用时 ' + mmss(DB.hist[0].dur)
-            : '100 题 / 60 分钟，90 分及格')}</div>
+      <div class="t">继续考试 · 模拟考试 <span style="font-size:11px;font-weight:600;color:#8A6100;background:var(--yellow-soft);border-radius:4px;padding:1px 5px;margin-left:6px">已暂停</span></div>
+      <div class="d">已答 ${examDone} / ${DB.exam.ids.length} 题 · 还剩 ${mmss(DB.exam.left || 0)}</div>
       ${examPct > 0 ? `<div class="bar"><i style="width:${examPct}%"></i></div>` : ''}
     </div>
-  </button>
+  </button>` : ''}
 
   <div class="section-title"><h2>顺序练习</h2><span class="note">按题库原顺序，边做边看答案</span></div>
   <div class="types">
@@ -498,7 +494,8 @@ function renderHome() {
 
   const cont = $('#btnContinue');
   if (cont) cont.onclick = () => resumeLast();
-  $('#btnExamQuick').onclick = () => startExam();
+  const eq = $('#btnExamQuick');
+  if (eq) eq.onclick = () => startExam();
   document.querySelectorAll('.tchip').forEach(b => b.onclick = () => startPractice(b.dataset.type));
   $('#btnRandom').onclick = () => startRandom();
   $('#btnExam').onclick = () => startExam();
@@ -579,7 +576,7 @@ function renderWrong() {
   const all = $('#btnRedoAll');
   if (all) all.onclick = () => startSession(wrongIds(), 'practice', '错题重做', 'wrong');
   $('#swAuto').onclick = () => {
-    DB.autoWrong = !(DB.autoWrong === false ? false : true);
+    DB.autoWrong = !DB.autoWrong;
     save(); renderWrong();
     toast(DB.autoWrong === false ? '已关闭：答对后仍保留' : '已开启：答对后自动移出');
   };
@@ -678,7 +675,6 @@ function renderStats() {
     return { t, a: st.a, c: st.c, pct };
   });
   const total = QS.length;
-  const done = new Set();
   $('#view').innerHTML = `
     <div class="stat-grid">
       <div class="stat"><div class="k">累计作答</div><div class="v">${answeredAll()}<small>题</small></div></div>
@@ -891,9 +887,9 @@ function goto(i) {
   S.idx = i;
   S.sel = selOf(S.ids[i]);
   if (S.mode === 'exam') persistExam();
-  if (S.mode === 'practice') {
+  if (S.mode === 'practice' && S.type) {
     DB.last = { list: S.ids, idx: S.idx, label: S.label };
-    if (S.type && DB.pos) DB.pos[S.type] = S.idx;
+    if (DB.pos) DB.pos[S.type] = S.idx;
     save();
     persistProg();
   }
@@ -916,7 +912,6 @@ function submitPractice() {
   if (S.sel.length === 0) { toast('先选一个答案'); return; }
   const got = S.sel.slice().sort().join('');
   const ok = got === q.a;
-  const wasWrong = !!DB.wrong[q.id];
   S.submitted[q.id] = true;
   S.res[q.id] = ok;
   S.answers[q.id] = got;
@@ -1174,14 +1169,15 @@ function submitExam(byTimeout) {
     const q = MAP.get(id);
     per[q.t].t++;
     const got = S.answers[id] || '';
+    per[q.t].t -= got ? 0 : 1;   // 未作答不计入正确率统计
     const ok = got === q.a;
-    if (ok) { correct++; per[q.t].c++; }
+    if (!got) return;           // 空题只扣分，不进错题本
+    if (ok) { correct++; per[q.t].c++; DB.stat[q.t].a++; DB.stat[q.t].c++; }
     else {
       wrongNow.push(id);
       DB.wrong[id] = (DB.wrong[id] || 0) + 1;
       DB.stat[q.t].a++;
     }
-    if (ok) { DB.stat[q.t].a++; DB.stat[q.t].c++; }
   });
   const total = ids.length;
   const score = Math.round(correct / total * 100);
