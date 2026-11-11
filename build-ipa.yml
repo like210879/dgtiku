@@ -1,0 +1,101 @@
+name: 构建 iOS 安装包
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-ipa:
+    runs-on: macos-15
+    timeout-minutes: 40
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 选择最新 Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: 准备 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装依赖
+        run: npm install --no-audit --no-fund
+
+      - name: 生成 iOS 原生工程（首次执行）
+        run: |
+          if [ ! -d ios/App ]; then
+            npx cap add ios
+          fi
+
+      - name: 同步网页资源
+        run: npx cap sync ios
+
+      - name: 生成 App 图标
+        run: |
+          npx @capacitor/assets generate --ios \
+            --iconBackgroundColor "#164E6E" \
+            --iconBackgroundColorDark "#164E6E" \
+            --splashBackgroundColor "#164E6E" \
+            --splashBackgroundColorDark "#164E6E" || echo "图标生成跳过"
+
+      - name: 设置中文显示名
+        run: |
+          PB=/usr/libexec/PlistBuddy
+          $PB -c "Set :CFBundleDisplayName 电工刷题" ios/App/App/Info.plist || \
+          $PB -c "Add :CFBundleDisplayName string 电工刷题" ios/App/App/Info.plist
+
+      - name: 编译（不签名）
+        run: |
+          set -e
+          cd ios/App
+          if [ -d App.xcworkspace ]; then
+            TARGET="-workspace App.xcworkspace -scheme App"
+          else
+            TARGET="-project App.xcodeproj -scheme App"
+          fi
+          xcodebuild $TARGET \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            ONLY_ACTIVE_ARCH=NO \
+            build
+
+      - name: 打包成 ipa
+        run: |
+          set -e
+          APP=$(find ios/App/build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -n 1)
+          echo "app: $APP"
+          rm -rf out && mkdir -p out/Payload
+          cp -R "$APP" out/Payload/
+          cd out
+          zip -qry "电工刷题.ipa" Payload
+          cp "电工刷题.ipa" dgtiku.ipa
+          ls -lh "电工刷题.ipa" dgtiku.ipa
+
+      - name: 上传安装包（Actions 附件）
+        uses: actions/upload-artifact@v4
+        with:
+          name: dgtiku-ipa
+          path: out/电工刷题.ipa
+          if-no-files-found: error
+
+      - name: 发布成公开下载链接（Release）
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0
+          name: 电工刷题 v1.0
+          body: 电工考证刷题 iOS 安装包（未签名，供 TrollStore / 巨魔安装）。
+          files: out/dgtiku.ipa
+          fail_on_unmatched_files: false
