@@ -1,0 +1,10 @@
+{
+  "appId": "com.dgtiku.app",
+  "appName": "DGTiku",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "scrollEnabled": true,
+    "limitsNavigationsToAppBoundDomains": false
+  }
+}

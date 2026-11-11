@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>电工考证刷题 · 600题</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23164E6E'/%3E%3Cpath d='M36 8 18 36h12l-6 20 20-30H30z' fill='%23F2B322'/%3E%3C/svg%3E">
+<style>
+/* ===== tokens ===== */
+:root{
+  --ink:#12212B;
+  --ink-2:#4A5D6B;
+  --ink-3:#7C8E9A;
+  --paper:#F1F5F6;
+  --card:#FFFFFF;
+  --line:#D8E2E7;
+  --line-2:#E9F0F3;
+  --blue:#164E6E;
+  --blue-2:#2C7BA8;
+  --blue-soft:#E7F0F5;
+  --yellow:#F2B322;
+  --yellow-soft:#FDF3D9;
+  --green:#2C7752;
+  --green-soft:#E6F2EA;
+  --red:#B4402C;
+  --red-soft:#FBEBE7;
+  --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px rgba(18,33,43,.05);
+  --r:12px;
+  --tap:48px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+  background:#E6ECEF;
+  background-image:
+    linear-gradient(to right,rgba(97,124,140,.10) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(97,124,140,.10) 1px,transparent 1px);
+  background-size:26px 26px;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--blue-2);outline-offset:2px}
+[hidden]{display:none!important}
+.app{
+  max-width:560px;margin:0 auto;min-height:100dvh;background:var(--paper);
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 0 0 1px rgba(18,33,43,.06),0 24px 60px rgba(18,33,43,.10);
+}
+@media (max-width:580px){
+  .app{max-width:none;box-shadow:none}
+  body{background:var(--paper);background-image:none}
+}
+.topbar{
+  position:sticky;top:0;z-index:20;background:rgba(241,245,246,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px;
+  display:flex;align-items:center;gap:10px;min-height:54px;
+}
+.topbar h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.2px}
+.topbar .sub{font-size:12px;color:var(--ink-3);letter-spacing:.4px}
+.iconbtn{width:44px;height:44px;display:grid;place-items:center;border-radius:10px;color:var(--ink-2);flex:none}
+.iconbtn:hover{background:var(--line-2)}
+.iconbtn svg{width:20px;height:20px}
+.spacer{flex:1}
+main{padding:16px;flex:1;display:flex;flex-direction:column}
+.tabbar{
+  position:sticky;bottom:0;z-index:30;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));
+}
+.tabbar button{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px 0;border-radius:10px;color:var(--ink-3);font-size:13px;
+}
+.tabbar button svg{width:22px;height:22px}
+.tabbar button.on{color:var(--blue);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.section-title{display:flex;align-items:baseline;gap:8px;margin:22px 2px 10px}
+.section-title h2{margin:0;font-size:15px;font-weight:700;letter-spacing:.3px}
+.section-title .note{font-size:13px;color:var(--ink-3)}
+/* ===== home hero ===== */
+.hero{background:radial-gradient(circle at 88% 4%,rgba(255,255,255,.13) 0 55px,transparent 56px),radial-gradient(circle at 96% 34%,rgba(255,255,255,.09) 0 40px,transparent 41px),radial-gradient(circle at 80% 12%,rgba(255,255,255,.07) 0 90px,transparent 91px),var(--blue);color:#fff;border-radius:14px;padding:18px 18px 16px;position:relative}
+.hero .kicker{font-size:12px;letter-spacing:2px;color:#9CC4D8;margin-bottom:6px}
+.hero .big{font-size:30px;font-weight:700;line-height:1.1;letter-spacing:.5px}
+.hero .big em{font-style:normal;color:var(--yellow)}
+.hero .desc{font-size:13.5px;color:#BBD5E2;margin-top:6px}
+.hero-metrics{display:flex;margin-top:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px}
+.hero-metrics div{flex:1;border-right:1px solid rgba(255,255,255,.14);padding-left:2px}
+.hero-metrics div:last-child{border-right:0}
+.hero-metrics .num{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+.hero-metrics .lab{font-size:12px;color:#9CC4D8;margin-top:2px}
+
+/* ===== continue ===== */
+.continue{margin-top:12px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.continue:hover{border-color:#BFD3DE}
+.continue .ring{width:42px;height:42px;flex:none;border-radius:50%;background:var(--yellow-soft);display:grid;place-items:center;color:#8A6100}
+.continue .ring svg{width:20px;height:20px}
+.continue .t{font-size:14.5px;font-weight:600}
+.continue .d{font-size:13px;color:var(--ink-3)}
+.continue .bar{height:4px;background:var(--line-2);border-radius:2px;margin-top:6px;overflow:hidden}
+.continue .bar i{display:block;height:100%;background:var(--blue-2)}
+.continue .txt{flex:1;min-width:0}
+
+/* ===== mode grid ===== */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:104px;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
+.mode:hover{border-color:#BFD3DE;transform:translateY(-1px)}
+.mode .ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue)}
+.mode .ico svg{width:17px;height:17px}
+.mode .name{font-size:15px;font-weight:700}
+.mode .desc{font-size:13px;color:var(--ink-3);line-height:1.45}
+.mode .go{position:absolute;right:12px;top:12px;font-size:12px;color:var(--blue-2);border:1px solid #C7DCE8;border-radius:20px;padding:2px 8px;background:#F5FAFC}
+.types{display:flex;gap:8px;margin-top:2px}
+.tchip{flex:1;display:flex;flex-direction:column;gap:2px;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-align:left;box-shadow:var(--shadow)}
+.tchip:hover{border-color:#BFD3DE}
+.tchip .n{font-size:13px;color:var(--ink-2)}
+.tchip .c{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--blue)}
+.tchip .c small{font-size:11px;font-weight:500;color:var(--ink-3);margin-left:2px}
+
+/* ===== quiz ===== */
+.gauge{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.gauge .track{position:relative;flex:1;height:10px;border-radius:5px;background:#DDE8EE}
+.gauge .fill{height:100%;border-radius:5px;background:var(--blue);transition:width .25s ease}
+.gauge .ticks{position:absolute;inset:0;border-radius:5px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 1px,transparent 1px 10%);pointer-events:none}
+.gauge .needle{position:absolute;top:-4px;width:2px;height:18px;background:var(--yellow);border-radius:2px;transition:left .25s ease;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+.gauge .cnt{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:66px;text-align:right}
+.qhead{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
+.badge{font-size:12px;font-weight:600;letter-spacing:.5px;padding:2px 8px;border-radius:5px;background:var(--blue-soft);color:var(--blue)}
+.badge.s{background:var(--yellow-soft);color:#8A6100}
+.qno{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 16px 16px;box-shadow:var(--shadow)}
+.stem{font-size:17.5px;line-height:1.62;letter-spacing:.2px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.opt{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;border:1px solid var(--line);border-radius:10px;background:#FBFCFD;padding:12px 13px;font-size:15.5px;line-height:1.5;transition:border-color .12s,background .12s}
+.opt:hover{border-color:#BFD3DE;background:#fff}
+.opt .key{flex:none;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;font-size:13px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.opt.sel{border-color:var(--blue);background:var(--blue-soft)}
+.opt.sel .key{background:var(--blue);color:#fff;border-color:var(--blue)}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.right .key{background:var(--green);color:#fff;border-color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.wrong .key{background:var(--red);color:#fff;border-color:var(--red)}
+.opt.miss{border-color:var(--yellow);background:var(--yellow-soft)}
+.opt.miss .key{background:var(--yellow);color:#5B4200;border-color:var(--yellow)}
+.judge-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.jopt{border:1px solid var(--line);border-radius:10px;background:#FBFCFD;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:15px;font-weight:600}
+.jopt .mk{font-size:24px;line-height:1;font-weight:700}
+.jopt:hover{border-color:#BFD3DE}
+.jopt.sel{border-color:var(--blue);background:var(--blue-soft)}
+.jopt.right{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.jopt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.verdict{margin-top:14px;border-radius:10px;padding:11px 13px;font-size:14px;line-height:1.55;display:flex;gap:9px;align-items:flex-start}
+.verdict.ok{background:var(--green-soft);color:#1F5A3D}
+.verdict.no{background:var(--red-soft);color:#7E2A1B}
+.verdict.tip{background:var(--yellow-soft);color:#6A4B00}
+.verdict svg{width:16px;height:16px;flex:none;margin-top:2px}
+.actions{position:sticky;bottom:0;margin:auto -16px -16px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--paper) 70%,rgba(241,245,246,0));display:flex;gap:9px;align-items:center}
+.btn{height:var(--tap);border-radius:10px;font-size:15px;font-weight:600;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--blue);color:#fff;flex:1}
+.btn.primary:hover{background:#123F59}
+.btn.primary[disabled]{background:#B7C7D0;color:#EEF3F6;cursor:not-allowed}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink-2)}
+.btn.ghost:hover{border-color:#BFD3DE}
+.btn.small{height:38px;font-size:13px;padding:0 12px;border-radius:8px}
+.btn.primary.small{flex:none}
+.btn svg{width:17px;height:17px}
+.sheet{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
+.sheet .cell{aspect-ratio:1/1;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:14px;font-variant-numeric:tabular-nums;display:grid;place-items:center;color:var(--ink-2)}
+.sheet .cell.on{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:700}
+.sheet .cell.ok{background:var(--green-soft);border-color:#A9CFBB;color:#1F5A3D}
+.sheet .cell.bad{background:var(--red-soft);border-color:#E3B4A8;color:#7E2A1B}
+.sheet .cell.now{outline:2px solid var(--yellow);outline-offset:1px}
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-align:left;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start;width:100%}
+.row:hover{border-color:#BFD3DE}
+.row .txt{flex:1;min-width:0}
+.row .meta{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.row .tag{font-size:12px;padding:1px 6px;border-radius:4px;background:var(--blue-soft);color:var(--blue)}
+.row .no{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.row .stemtxt{font-size:14px;line-height:1.55;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.row .side{flex:none;color:var(--ink-3)}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat .k{font-size:13px;color:var(--ink-3)}
+.stat .v{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--blue);line-height:1.3}
+.stat .v small{font-size:12px;color:var(--ink-3);font-weight:500;margin-left:2px}
+.bars{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.bar-row .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2);margin-bottom:4px}
+.bar-row .lab b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.bar-row .track{height:8px;border-radius:4px;background:var(--line-2);overflow:hidden}
+.bar-row .track i{display:block;height:100%;background:var(--blue-2);border-radius:4px}
+.bar-row .track i.g{background:var(--green)}
+.bar-row .track i.y{background:var(--yellow)}
+.result-hero{text-align:center;padding:22px 16px 18px;background:var(--blue);color:#fff;border-radius:14px}
+.result-hero .score{font-size:52px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.result-hero .score small{font-size:15px;font-weight:500;color:#9CC4D8}
+.result-hero .tag2{display:inline-block;margin-top:8px;font-size:12px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.16)}
+.result-hero .pass{background:#2C7752;color:#fff}
+.result-hero .fail{background:#8A3324;color:#fff}
+.result-meta{display:flex;margin-top:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;text-align:left}
+.result-meta div{flex:1}
+.result-meta .num{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.result-meta .lab{font-size:12px;color:#9CC4D8}
+.empty{text-align:center;padding:40px 20px;color:var(--ink-3)}
+.empty .big{font-size:15.5px;color:var(--ink-2);margin-bottom:6px}
+.empty .sub{font-size:13px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(8px);background:rgba(18,33,43,.92);color:#fff;font-size:13px;padding:9px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:80vw}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(14,26,34,.42);display:none;align-items:flex-end;justify-content:center}
+.modal.on{display:flex}
+.modal .panel{width:100%;max-width:560px;background:var(--paper);border-radius:16px 16px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:82dvh;overflow:auto}
+.modal .panel .head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.modal .panel .head h3{margin:0;font-size:15px}
+.modal .panel .head .spacer{flex:1}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--ink-3);margin-top:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:middle}
+@media (max-width:360px){
+  .hero .big{font-size:26px}
+  .sheet{grid-template-columns:repeat(5,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <button class="iconbtn" id="btnBack" aria-label="返回" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div style="min-width:0">
+      <h1 id="appTitle">电工考证刷题</h1>
+      <div class="sub" id="appSub">电工竞赛项目理论知识题库</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="btnSheet" aria-label="答题卡" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+    </button>
+    <button class="iconbtn" id="btnReset" aria-label="清空记录" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
+    </button>
+  </header>
+  <main id="view"></main>
+  <nav class="tabbar" id="tabbar">
+    <button data-tab="home" class="on">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5 12 4l8 6.5V20h-6v-6H10v6H4z"/></svg>
+      首页
+    </button>
+    <button data-tab="wrong">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 4h12v16l-6-4-6 4z"/><path d="M9.5 9.5 14.5 14.5M14.5 9.5 9.5 14.5"/></svg>
+      错题本
+    </button>
+    <button data-tab="fav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m12 4 2.4 5 5.6.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.6-.8z"/></svg>
+      收藏
+    </button>
+    <button data-tab="stats">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      统计
+    </button>
+  </nav>
+</div>
+<div class="modal" id="modal">
+  <div class="panel">
+    <div class="head">
+      <h3>答题卡</h3>
+      <span class="qno" id="modalCount"></span>
+      <div class="spacer"></div>
+      <button class="btn small ghost" id="modalClose">关闭</button>
+    </div>
+    <div class="sheet" id="sheetGrid"></div>
+    <div class="legend">
+      <span><i style="background:var(--blue-soft);border:1px solid var(--blue)"></i>当前</span>
+      <span><i style="background:var(--green-soft);border:1px solid #A9CFBB"></i>答对</span>
+      <span><i style="background:var(--red-soft);border:1px solid #E3B4A8"></i>答错</span>
+      <span><i style="background:#fff;border:1px solid var(--line)"></i>未答</span>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const QS = [{"id":"j1","t":"j","n":1,"s":"新安装的电气设备在投入运行前必须有针对性试验报告。","o":[],"a":"×"},{"id":"j2","t":"j","n":2,"s":"电动机常用控制方法中不包括电动机正反转控制。","o":[],"a":"×"},{"id":"j3","t":"j","n":3,"s":"JK 触发电路中，当J=1、K=1、Qn=0 时，触发器的状态为置1。","o":[],"a":"√"},{"id":"j4","t":"j","n":4,"s":"电梯曳引机上的制动器是线圈有电流才能把曳引机制停的。","o":[],"a":"×"},{"id":"j5","t":"j","n":5,"s":"在程序编制过程中，同一编号的线圈在一个程序中可以使用多次。","o":[],"a":"×"},{"id":"j6","t":"j","n":6,"s":"PLC 输入继电器不仅由外部输入信号驱动而且也能被程序指令驱动。","o":[],"a":"×"},{"id":"j7","t":"j","n":7,"s":"单向电动机的运行方向是由起动绕组磁场方向决定的。","o":[],"a":"√"},{"id":"j8","t":"j","n":8,"s":"对直流电机，不用检查电刷与滑环之间的接触压力。","o":[],"a":"×"},{"id":"j9","t":"j","n":9,"s":"当二极管外加电压时，反向电流很小，且不随反向电压变化。","o":[],"a":"√"},{"id":"j10","t":"j","n":10,"s":"电动机的允许温升是由电动机工作时的环境温度决定的。","o":[],"a":"×"},{"id":"j11","t":"j","n":11,"s":"异步电动机绝缘耐压等级为E 级时，电动机的允许温升是75℃。","o":[],"a":"√"},{"id":"j12","t":"j","n":12,"s":"自动门机常用的有直流门机、交流门机和变频门机。","o":[],"a":"√"},{"id":"j13","t":"j","n":13,"s":"变频调速中的变频器都具有调频和调压两种功能。","o":[],"a":"×"},{"id":"j14","t":"j","n":14,"s":"永磁式测速发电机的定子用永久磁铁制成，一般为隐极式。","o":[],"a":"×"},{"id":"j15","t":"j","n":15,"s":"可编程序控制器编程简单，操作方便，维修容易，易发生操作失误。","o":[],"a":"×"},{"id":"j16","t":"j","n":16,"s":"在电气设备中增大磁阻就可减小涡流。","o":[],"a":"×"},{"id":"j17","t":"j","n":17,"s":"减少皮带轮两轮中心距可解决皮带中转动的打滑现象。","o":[],"a":"×"},{"id":"j18","t":"j","n":18,"s":"交流电动机三相绕组，直流电阻误差不应大于2%。","o":[],"a":"√"},{"id":"j19","t":"j","n":19,"s":"PLC 可编程序控制器输入部分是收集被控制设备的信息或操作指令。","o":[],"a":"√"},{"id":"j20","t":"j","n":20,"s":"为简化二进制数才引进十六进制数，其实机器并不能识别十六进制数。","o":[],"a":"√"},{"id":"j21","t":"j","n":21,"s":"电伤伤害是造成触电死亡的主要原因，是最严重的触电事故。","o":[],"a":"×"},{"id":"j22","t":"j","n":22,"s":"由于直流电机需要换向，致使直流电机只能做成电枢旋转式。","o":[],"a":"√"},{"id":"j23","t":"j","n":23,"s":"开关元件反映的信息，必须经过模数变换成数字信息后，送入微机系统。","o":[],"a":"√"},{"id":"j24","t":"j","n":24,"s":"变频器通电调试前需要检查外观、构造、电源电压和绝缘电阻。","o":[],"a":"√"},{"id":"j25","t":"j","n":25,"s":"当线圈中电流增加时，自感电流与原电流方向相同。","o":[],"a":"×"},{"id":"j26","t":"j","n":26,"s":"电磁铁是根据电流的磁效应和磁能吸引铁的特性和原理制成的。","o":[],"a":"√"},{"id":"j27","t":"j","n":27,"s":"通电导体在磁场中所受电磁力的大小仅于磁场的强弱有关。","o":[],"a":"×"},{"id":"j28","t":"j","n":28,"s":"对于一般中、小型直流电机，应选用接触压降较小的含铜石墨电刷。","o":[],"a":"×"},{"id":"j29","t":"j","n":29,"s":"晶闸管斩波器的作用是把可调的直流电压变为固定的直流电压。","o":[],"a":"×"},{"id":"j30","t":"j","n":30,"s":"断路器的分闸时间是指跳闸线圈通电到灭弧触头刚分离的这段时间。","o":[],"a":"×"},{"id":"j31","t":"j","n":31,"s":"当直流电机定子与电枢之间的空气隙增大时，直流电机的磁阻不变。","o":[],"a":"×"},{"id":"j32","t":"j","n":32,"s":"电压的方向规定由低电位点指向高电位点。","o":[],"a":"×"},{"id":"j33","t":"j","n":33,"s":"交流放大器级间耦合可以采用阻容耦合方式。","o":[],"a":"√"},{"id":"j34","t":"j","n":34,"s":"HTL 门电路抗干扰能力较强的特点是因其阀值电压较高的缘故。","o":[],"a":"√"},{"id":"j35","t":"j","n":35,"s":"交流电动机的试验内容不包括绝缘电阻的测定。","o":[],"a":"×"},{"id":"j36","t":"j","n":36,"s":"交流接触器的吸合电压不应低于85%线圈额定电压。","o":[],"a":"√"},{"id":"j37","t":"j","n":37,"s":"或非门电路是在“或”门前面加一级反相器构成的。","o":[],"a":"×"},{"id":"j38","t":"j","n":38,"s":"数字电路中“1”与“0”电平中的“0”指没有电压。","o":[],"a":"×"},{"id":"j39","t":"j","n":39,"s":"常用接触器有直流接触器和真空接触器。","o":[],"a":"×"},{"id":"j40","t":"j","n":40,"s":"新安装的二次接线回路的每一支路的导线对地电阻应不小于50MΩ。","o":[],"a":"×"},{"id":"j41","t":"j","n":41,"s":"电磁脱扣器属于应急供电的设备。","o":[],"a":"√"},{"id":"j42","t":"j","n":42,"s":"减速箱的蜗轮与蜗杆在更换时要成对更换。","o":[],"a":"√"},{"id":"j43","t":"j","n":43,"s":"电压型逆变器适宜于不经常起动、制动和反转的拖动装置中。","o":[],"a":"√"},{"id":"j44","t":"j","n":44,"s":"平键选择时主要是根据轴的直径确定其截面尺寸。","o":[],"a":"√"},{"id":"j45","t":"j","n":45,"s":"液压泵的吸油高度一般应大于500mm。","o":[],"a":"×"},{"id":"j46","t":"j","n":46,"s":"电梯安装人员应当熟知我国电梯安装及验收规范，并严格执行。","o":[],"a":"√"},{"id":"j47","t":"j","n":47,"s":"电力晶体管在使用时要防止二次击穿。","o":[],"a":"√"},{"id":"j48","t":"j","n":48,"s":"电梯的层站召唤信号是通过各个楼层门口旁的按钮来实现的。","o":[],"a":"√"},{"id":"j49","t":"j","n":49,"s":"锥齿轮的尺寸计算是以大端齿形参数为基准。","o":[],"a":"√"},{"id":"j50","t":"j","n":50,"s":"直流伺服电动机有他励式和永磁式两种，其转速由信号电压控制。","o":[],"a":"√"},{"id":"j51","t":"j","n":51,"s":"电流正反馈是一种对系统扰动量进行补偿控制的调节方法。","o":[],"a":"√"},{"id":"j52","t":"j","n":52,"s":"三端集成稳压块，可以用于交流稳压电路。","o":[],"a":"×"},{"id":"j53","t":"j","n":53,"s":"TTL 门电路正常工作时能带动同类与非门的最大数目称扇出系数。","o":[],"a":"√"},{"id":"j54","t":"j","n":54,"s":"自动空气开关电磁脱扣器是作为长期过负荷保护的电流脱扣元件。","o":[],"a":"×"},{"id":"j55","t":"j","n":55,"s":"使用直流电流表测直流电流时，电流表应串联在被测电路中。","o":[],"a":"√"},{"id":"j56","t":"j","n":56,"s":"转速负反馈调速系统的动态特点取决于系统的闭环放大倍数。","o":[],"a":"×"},{"id":"j57","t":"j","n":57,"s":"引用相对误差是仪表的最大示值误差与仪表的满量程之比。","o":[],"a":"√"},{"id":"j58","t":"j","n":58,"s":"离心开关是较常用的启动开关，一般安装在电动机端盖边的转子上。","o":[],"a":"√"},{"id":"j59","t":"j","n":59,"s":"通电前的检查，首先确认输入电源电压和相序。","o":[],"a":"×"},{"id":"j60","t":"j","n":60,"s":"绕线式异步电动机串级调速电路中，转子回路要串入附加电动势。","o":[],"a":"√"},{"id":"j61","t":"j","n":61,"s":"集成运放电路非线性应用要求开环或加正反馈。","o":[],"a":"√"},{"id":"j62","t":"j","n":62,"s":"组合逻辑电路由门电路组成。","o":[],"a":"√"},{"id":"j63","t":"j","n":63,"s":"时序逻辑电路通常由触发器等器件构成。","o":[],"a":"√"},{"id":"j64","t":"j","n":64,"s":"555 定时器构成的多谐振荡电路只有一种稳定状态。","o":[],"a":"×"},{"id":"j65","t":"j","n":65,"s":"集成移位寄存器可实现左移、右移功能。","o":[],"a":"√"},{"id":"j66","t":"j","n":66,"s":"集成移位寄存器可实现顺序脉冲产生器功能。","o":[],"a":"√"},{"id":"j67","t":"j","n":67,"s":"74LS139 是2 线—4 线集成译码器。","o":[],"a":"√"},{"id":"j68","t":"j","n":68,"s":"74LS138 及相应门电路可实现加法器的功能。","o":[],"a":"√"},{"id":"j69","t":"j","n":69,"s":"集成二--十进制计数器是二进制编码十进制进位的电路。","o":[],"a":"√"},{"id":"j70","t":"j","n":70,"s":"集成二--十进制计数器可通过显示译码器将计数结果显示出来。","o":[],"a":"√"},{"id":"j71","t":"j","n":71,"s":"集成运放电路的输入信号过大，会损坏运放器件。","o":[],"a":"√"},{"id":"j72","t":"j","n":72,"s":"集成运放电路的电源端可外接二极管防止电源极性接反。","o":[],"a":"√"},{"id":"j73","t":"j","n":73,"s":"三态门的使能端状态不对时，信号传输将断开。","o":[],"a":"√"},{"id":"j74","t":"j","n":74,"s":"组合逻辑电路不能工作时，首先应检查其使能端的状态对不对。","o":[],"a":"√"},{"id":"j75","t":"j","n":75,"s":"RS 触发器具有两种稳定状态，并具有不定状态情况。","o":[],"a":"√"},{"id":"j76","t":"j","n":76,"s":"JK 触发器是在CP 脉冲下降沿进行状态翻转的触发器。","o":[],"a":"√"},{"id":"j77","t":"j","n":77,"s":"晶闸管的触发电路必须能够产生一定功率和宽度的触发脉冲信号。","o":[],"a":"√"},{"id":"j78","t":"j","n":78,"s":"三相半波可控整流电路分半控和全控两类。","o":[],"a":"×"},{"id":"j79","t":"j","n":79,"s":"三相半波可控整流电路电阻负载的控制角α移相范围是0～150°。","o":[],"a":"√"},{"id":"j80","t":"j","n":80,"s":"三相半控桥式整流电路由六只晶闸管组成。","o":[],"a":"×"},{"id":"j81","t":"j","n":81,"s":"职业道德是一种强制性的约束机制。","o":[],"a":"×"},{"id":"j82","t":"j","n":82,"s":"向企业员工灌输的职业道德太多了，容易使员工产生谨小慎微的观念。","o":[],"a":"×"},{"id":"j83","t":"j","n":83,"s":"要做到办事公道，在处理公私关系时，要公私不分。","o":[],"a":"×"},{"id":"j84","t":"j","n":84,"s":"勤劳节俭虽然有利于节省资源，但不能促进企业的发展。","o":[],"a":"×"},{"id":"j85","t":"j","n":85,"s":"职业纪律中包括群众纪律。","o":[],"a":"√"},{"id":"j86","t":"j","n":86,"s":"职业活动中，每位员工都必须严格执行安全操作规程。","o":[],"a":"√"},{"id":"j87","t":"j","n":87,"s":"二极管按结面积可分为点接触型、面接触型。","o":[],"a":"√"},{"id":"j88","t":"j","n":88,"s":"二极管只要工作在反向击穿区，一定会被击穿。","o":[],"a":"×"},{"id":"j89","t":"j","n":89,"s":"T68 镗床的照明灯由控制照明变压器TC 提供10V 的安全电压。","o":[],"a":"×"},{"id":"j90","t":"j","n":90,"s":"电子电路常用电子毫伏表及示波器进行测试。","o":[],"a":"√"},{"id":"j91","t":"j","n":91,"s":"集成移位寄存器具有清零、保持功能。","o":[],"a":"√"},{"id":"j92","t":"j","n":92,"s":"集成译码器可实现数码显示的功能。","o":[],"a":"√"},{"id":"j93","t":"j","n":93,"s":"集成二--十进制计数器可以组成任意进制计数器。","o":[],"a":"√"},{"id":"j94","t":"j","n":94,"s":"集成二--十进制计数器通过反馈置数及反馈清零法计数。","o":[],"a":"√"},{"id":"j95","t":"j","n":95,"s":"集成运放电路的电源极性如果接反，会损坏运放器件。","o":[],"a":"√"},{"id":"j96","t":"j","n":96,"s":"数码寄存器的结果出现错误，可能是没有清零端操作。","o":[],"a":"√"},{"id":"j97","t":"j","n":97,"s":"FX2N 系列可编程序控制器辅助继电器用M 表示。","o":[],"a":"√"},{"id":"j98","t":"j","n":98,"s":"FX2N PLC 中RST 可以对定时器、计数器、数据寄存器的内容清零。","o":[],"a":"√"},{"id":"j99","t":"j","n":99,"s":"FX2N 系列可编程序控制器在使用计数器指令时需要配合使用RST 指令。","o":[],"a":"√"},{"id":"j100","t":"j","n":100,"s":"PLC 梯形图编程时，输出继电器的线圈可以并联放在右端。","o":[],"a":"√"},{"id":"s1","t":"s","n":1,"s":"市场经济条件下，职业道德最终将对企业起到( )的作用。","o":["提高竞争力","决定前途与命运","决定经济效益","决策科学化"],"a":"A"},{"id":"s2","t":"s","n":2,"s":"社会主义核心价值体系是( )。","o":["个人意识的外在体现","个人意识的本质体现","社会意识的外在体现","社会意识的本质体现"],"a":"D"},{"id":"s3","t":"s","n":3,"s":"企业员工在生产经营活动中，不符合平等尊重要求的是( )。","o":["男女有序，尊卑有别","互相借鉴，取长补短","男女平等，友爱亲善","真诚相待，一视同仁"],"a":"A"},{"id":"s4","t":"s","n":4,"s":"在磁场内部和外部，磁力线分别由( )。","o":["分别是内部S 极指向N 极，外部N 极指向S 极","都是S 极指向N 极","分别是内部N 极指向S 极，外部S 极指向N 极","都是S 极指向N 极"],"a":"A"},{"id":"s5","t":"s","n":5,"s":"二次电气图不是用于反映二次系统( )等的一种电气工程图。","o":["工作原理","组成","连接关系","电器设备安装位置"],"a":"D"},{"id":"s6","t":"s","n":6,"s":"电动机是使用最普遍的电气设备之一，一般在70%-95%额定负载下运行时( )。","o":["效率最低","功率因数小","效率最高，功率因数大","效率最低，功率因数小"],"a":"C"},{"id":"s7","t":"s","n":7,"s":"三相负载通常有三角形和( )两种接法。","o":["桥形","星形","四边形","环形"],"a":"B"},{"id":"s8","t":"s","n":8,"s":"下列电磁污染形式不属于人为的电磁污染的是( )。","o":["电磁场","地震","射频电磁污染","脉冲放电"],"a":"B"},{"id":"s9","t":"s","n":9,"s":"基轴制的代号为( )。","o":["H","h","D","d"],"a":"B"},{"id":"s10","t":"s","n":10,"s":"下列控制声音传播的措施中( )不属于隔声措施。","o":["在室内使用双层门","在室内使用多层门","采用双层窗","将多孔海绵板固定在室内"],"a":"D"},{"id":"s11","t":"s","n":11,"s":"交流电的三要素是( )。","o":["初相、频率、瞬时值","初相、频率、最大值","初相、频率、有效值","初相、周期、最大值"],"a":"B"},{"id":"s12","t":"s","n":12,"s":"在步进电动机驱动电路中，脉冲信号经( )放大器后控制步进电动机励磁绕组。","o":["电压","电流","直流","功率"],"a":"D"},{"id":"s13","t":"s","n":13,"s":"热继电器是电动机的常用保护，它是用( )的原理。","o":["双金属片通过电流发热而变形","电磁感应","电流的热效应","集肤效应"],"a":"A"},{"id":"s14","t":"s","n":14,"s":"为使电炉丝消耗的功率减小到原来的一半则应( )。","o":["使电阻减半","使电压减半","使电阻加倍","使电压加倍"],"a":"A"},{"id":"s15","t":"s","n":15,"s":"要使RLC 串联电路的谐振频率增大,采用的方法是( )。","o":["增加两电容器两极板间距离","增加线圈的匝数","增加两电容器两极板的正对面积","在线圈中插入铁心"],"a":"A"},{"id":"s16","t":"s","n":16,"s":"对一般三相交流发电机的三个线圈中的电动势，正确说法是（ ）。","o":["它们达到最大值的时间依次落后1/3 周期","它们同时达到最大值","它们的周期不同","它们的最大值不同"],"a":"A"},{"id":"s17","t":"s","n":17,"s":"感性负载（或电抗器）之前并联一个二极管，其作用是( )。","o":["防止负载开路","防止负载过电流","保证负载正常工作","保证了晶闸管的正常工作"],"a":"D"},{"id":"s18","t":"s","n":18,"s":"在正弦交流电路中，( )是耗能元件。","o":["电阻","电感","电容","电感和电容"],"a":"A"},{"id":"s19","t":"s","n":19,"s":"并联谐振式逆变器虽然换流期间四只晶闸管都导通，由于( )作用，电源不会短路。","o":["大电感Ld的限流","大电容Cd的限压","大电感Ld的限压","大电容Cd的限流"],"a":"A"},{"id":"s20","t":"s","n":20,"s":"( )适用于向多台电动机供电，不可逆拖动，稳速工作，快速性要求不高的场合。","o":["电感式逆变器","电压型逆变器","电流型逆变器","电容式逆变器"],"a":"B"},{"id":"s21","t":"s","n":21,"s":"在编程时，也可把所需要并联的回路连贯地写出，而在这些回路的末尾连续使用与支路个数相同的ANB 指令，这时指令最多使用( )。","o":["没有限制","有限制","七次","八次"],"a":"C"},{"id":"s22","t":"s","n":22,"s":"数字式触发电路中如UK＝0 时，脉冲频率f＝13kHz，UK＝10V 时，f＝( ) kHz。","o":["130","13","1300","1.3"],"a":"A"},{"id":"s23","t":"s","n":23,"s":"直流快速开关的动作时间仅2ms，全部分断电弧也不超过( )ms，适用于中、大容量整流电路的严重过载和直流侧短路保护。","o":["15～20","10～15","20～25","25～30"],"a":"B"},{"id":"s24","t":"s","n":24,"s":"常用的显示器件是( )数码显示器。","o":["五段","九段","七段","十一段"],"a":"C"},{"id":"s25","t":"s","n":25,"s":"异步电动机与同步电动机相比，异步电动机( )。","o":["启动性较差","调速性较差","功率因素不高","运行更可靠"],"a":"C"},{"id":"s26","t":"s","n":26,"s":"直流电动机的转子由电枢铁芯、电枢绕组、转轴和( )等组成。","o":["换向器","电刷","主磁极","换向极"],"a":"A"},{"id":"s27","t":"s","n":27,"s":"在线路工作正常后，通以全电压、全电流( )，以考核电路元件的发热情况和整流电路的稳定性。","o":["1～2h","2～3h","0.5～lh","3～4h"],"a":"C"},{"id":"s28","t":"s","n":28,"s":"( )不是输入全部不接通而且输入指示灯均不亮的原因。","o":["公共端子螺钉松动","单元内部有故障","远程I/O 站的电源未通","未加外部输入电源"],"a":"B"},{"id":"s29","t":"s","n":29,"s":"弱磁调速是从n0向上调速，调速特性为( )输出。","o":["恒电流","恒转矩","恒功率","恒效率"],"a":"C"},{"id":"s30","t":"s","n":30,"s":"交磁电机扩大机是一种旋转式的( )放大装置。","o":["电压","电流","磁率","功率"],"a":"D"},{"id":"s31","t":"s","n":31,"s":"兆欧表按照工作原理划分，属于( )。","o":["磁电系","电磁系","电动系","感应系"],"a":"A"},{"id":"s32","t":"s","n":32,"s":"由一组逻辑电路判断控制整流器触发脉冲通道的开放和封锁，这就构成了( )可逆调速系统。","o":["逻辑环流","逻辑无环流","可控环流","可控无环流"],"a":"B"},{"id":"s33","t":"s","n":33,"s":"转矩极性鉴别器常常采用运算放大器经( )组成的施密特电路检测速度调节器的输出电压un。","o":["负反馈","串联负反馈","串联正反馈","正反馈"],"a":"D"},{"id":"s34","t":"s","n":34,"s":"为了保护零件加工程序，数控系统有专用电池作为存储器( )芯片的备用电源。当电池电压小于4.5V 时，需要换电池，更换时应按有关说明书的方法进行。","o":["ROM","EPROM","RAM","CPU"],"a":"C"},{"id":"s35","t":"s","n":35,"s":"MPU 与外设之间进行数据传输有( )方式。","o":["控制中断控制","其它都是","选择直接存储器存取（DMA）","程序控制"],"a":"B"},{"id":"s36","t":"s","n":36,"s":"兆欧表可以测量( )。","o":["电压","电流","电阻","阻抗"],"a":"C"},{"id":"s37","t":"s","n":37,"s":"多谐振荡器可产生( )。","o":["正弦波","三角波","矩形脉冲","锯齿波"],"a":"C"},{"id":"s38","t":"s","n":38,"s":"计算机系统中，信息的传送是通过总线进行的。它有( )组总线。","o":["三","二","四","一"],"a":"A"},{"id":"s39","t":"s","n":39,"s":"高频电源设备的直流高压不宜直接由( )整流器提供。","o":["晶体管","硅高压管","晶闸管","电子管"],"a":"C"},{"id":"s40","t":"s","n":40,"s":"交流接触器的动作动力来源于( )。","o":["直流电源","交流电源","直流电磁铁","交流电磁铁"],"a":"D"},{"id":"s41","t":"s","n":41,"s":"可编程序控制器是一种工业控制计算机，有很强的自检功能。可通过其( )功能，诊断出许多自身故障或外围设备的故障。","o":["保护","监控","调节","自检"],"a":"D"},{"id":"s42","t":"s","n":42,"s":"“保护接零”方式，适用于( )供电系统。","o":["TN－S","TN－C","IT","TT"],"a":"B"},{"id":"s43","t":"s","n":43,"s":"组合机床电磁阀和信号灯采用直流( )电源。","o":["12V","24V","6V","36V"],"a":"B"},{"id":"s44","t":"s","n":44,"s":"常用调功器主要采用( )为基础，从而智能控制电力来控制电源功率。","o":["二极管","可控硅","电阻","三极管"],"a":"B"},{"id":"s45","t":"s","n":45,"s":"无换向器电动机的结构由( )等部分组成。","o":["定子磁场和转子（电枢）及刷架等附件","电动机本体（主定子、主转子）、位置传感器（定子、转子）、电子换向开关","装多相电枢绕组的定子和一定极数的永磁钢转子","定子和转子端盖等"],"a":"B"},{"id":"s46","t":"s","n":46,"s":"处于阻断状态的晶闸管，只有在阳极与阴极间加正向电压，且在门极与阴极间作何处理才能使其开通( ) 。","o":["并联一电容","串联一电感","加反向触发电压","加正向触发电压"],"a":"D"},{"id":"s47","t":"s","n":47,"s":"可编程序控制器的特点是( )。","o":["统计运算、计时、计数采用了一系列可靠性设计","A、C、D 都是","数字运算、计时编程简单，操作方便，维修容易，不易发生操作失误","不需要大量的活动部件和电子元件，接线大大减少，维修简单，维修时间缩短，性能可靠"],"a":"B"},{"id":"s48","t":"s","n":48,"s":"压敏电阻在晶闸管整流电路中主要是用来( )。","o":["分流","降压","过电流保护","过电压保护"],"a":"D"},{"id":"s49","t":"s","n":49,"s":"可编程序控制器采用大规模集成电路构成的( )和存储器来组成逻辑部分。","o":["运算器","微处理器","控制器","累加器"],"a":"B"},{"id":"s50","t":"s","n":50,"s":"可编程序控制器采用可以编制程序的存储器，用来在其内部存储执行逻辑运算、( )和算术运算等操作指令。","o":["控制运算、计数","统计运算、计时、计数","数字运算、计时","顺序控制、计时、计数"],"a":"D"},{"id":"s51","t":"s","n":51,"s":"可编程序控制器通过编程，灵活地改变其控制程序，相当于改变了继电器控制的( )线路。","o":["主、控制","软接线","硬接线","控制"],"a":"C"},{"id":"s52","t":"s","n":52,"s":"PWM 脉宽调制技术用于( )。","o":["无源逆变器","有源逆变器","脉冲触发器","脉冲移相器"],"a":"B"},{"id":"s53","t":"s","n":53,"s":"以下各项中不属于电压型逆变器特点的是( )。","o":["输出交流电流波形为矩形波","若是电机负载为实现再生制动需增加一套反并联的变流器","直流侧为一电压源","应设有反馈二极管"],"a":"B"},{"id":"s54","t":"s","n":54,"s":"正弦波振荡器的震荡频率f 取决于（ ）。","o":["选频网络参数","反馈元件的参数","放大器的放大倍数","反馈强度"],"a":"A"},{"id":"s55","t":"s","n":55,"s":"在摇测电容绝缘电阻时，在未断开摇表火线前，不得将摇表停下，其原因是（ ）。","o":["防止损坏电容","防止人身触电","影响测量数值","防止损坏摇表"],"a":"D"},{"id":"s56","t":"s","n":56,"s":"下列不属于鼠笼型异步电动机启动方法的是（ ）。","o":["Y－△启动","定子电路串电阻","自耦降压启动器启动","转子电路串电阻"],"a":"D"},{"id":"s57","t":"s","n":57,"s":"35KV 断路器大修时，交流耐压试验电压标准为（ ）。","o":["38KV","55KV","75KV","85KV"],"a":"A"},{"id":"s58","t":"s","n":58,"s":"我们通常将计算机的（ ）集成在一个或几个芯上，称微处理器。","o":["运算器","存贮器与控制器","运算器与控制器","运算器与存贮器"],"a":"D"},{"id":"s59","t":"s","n":59,"s":"电动机铭牌上的“温升”，指的是（ ）允许温升。","o":["定子绕组","定子铁芯","转子","外壳"],"a":"A"},{"id":"s60","t":"s","n":60,"s":"按劳动工时定额组成判断，下列中（ ）方法可以缩短辅助时间。","o":["缩短布置工作场地时间","缩短工人开会、学习时间","缩短工人劳动工时","缩短设备维修时间"],"a":"A"},{"id":"s61","t":"s","n":61,"s":"为了促进企业的规范化发展，需要发挥企业文化的( )功能。","o":["娱乐","决策","自律","主导"],"a":"C"},{"id":"s62","t":"s","n":62,"s":"职业道德通过( )，起着增强企业凝聚力的作用。","o":["为员工创造发展空间","增加职工福利","调节企业与社会的关系","协调员工之间的关系"],"a":"D"},{"id":"s63","t":"s","n":63,"s":"企业生产经营活动中，促进员工之间平等尊重的措施是( )。","o":["加强交流，平等对话","人心叵测，谨慎行事","只要合作，不要竞争","互利互惠，平均分配"],"a":"A"},{"id":"s64","t":"s","n":64,"s":"在电源内部由负极指向正极，即从( )。","o":["高电位指向高电位","低电位指向低电位","高电位指向低电位","低电位指向高电位"],"a":"D"},{"id":"s65","t":"s","n":65,"s":"( )反映了在不含电源的一段电路中，电流与这段电路两端的电压及电阻的关系。","o":["欧姆定律","楞次定律","部分电路欧姆定律","全欧姆定律"],"a":"C"},{"id":"s66","t":"s","n":66,"s":"并联电路中的总电流等于各电阻中的( )。","o":["相等","电流之和","倒数之和","分配的电流与各电阻值成正比"],"a":"B"},{"id":"s67","t":"s","n":67,"s":"正弦交流电常用的表达方法有( )。","o":["解析式表示法","相量表示法","其他都是","波形图表示法"],"a":"C"},{"id":"s68","t":"s","n":68,"s":"一般要求模拟放大电路的输入电阻是（ ）些好。","o":["小些好，输出电阻大","大些好，输出电阻小","输出电阻都大","输出电阻都小"],"a":"B"},{"id":"s69","t":"s","n":69,"s":"三极管放大区的放大条件为( )。","o":["发射结反偏或零偏，集电结反偏","发射结和集电结正偏","发射结正偏，集电结反偏","发射结和集电结反偏"],"a":"B"},{"id":"s70","t":"s","n":70,"s":"游标卡尺( )应清理干净，并将两量爪合并，检查游标卡尺的精度情况。","o":["测量时","测量前","测量中","测量后"],"a":"B"},{"id":"s71","t":"s","n":71,"s":"转速负反馈单闭环调速系统是反映转速变化的电压信号作为反馈信号，经“速度变化”后接到( )的输入端。","o":["放大器","电流调节器","速度调节器","积分调节器"],"a":"C"},{"id":"s72","t":"s","n":72,"s":"噪声可分为( )，机械噪声和电磁噪声。","o":["电力噪声","水噪声","电气噪声","气体动力噪声"],"a":"D"},{"id":"s73","t":"s","n":73,"s":"对于每个职工来说，质量管理的主要内容有岗位的质量要求、( )、质量保证措施和质量责任等。","o":["信息反馈","质量记录","质量目标","质量水平"],"a":"C"},{"id":"s74","t":"s","n":74,"s":"反应式步进电动机的转速n 与脉冲频率f 的关系是：（ ）。","o":["成正比","成反比","f2 成正比","f2 成反比"],"a":"B"},{"id":"s75","t":"s","n":75,"s":"异步电动机的极数越少，则转速越高，输出转矩（ ）。","o":["增大","不变","与转速无关","越小"],"a":"D"},{"id":"s76","t":"s","n":76,"s":"将可能引起正反馈的各元件或引线远离且互相垂直放置，以减少它们的耦合，破坏其( )平衡条件。","o":["条件","相位","振幅","起振"],"a":"C"},{"id":"s77","t":"s","n":77,"s":"根据电动机的速度变化，利用（ ）等电器来控制电动机的工作状态称为速度控制原则。","o":["电流继电器","时间继电器","位置开关","速度继电器"],"a":"D"},{"id":"s78","t":"s","n":78,"s":"( )适用于50～200kHz。","o":["IGBT","SIT","MOSFET","GTR"],"a":"B"},{"id":"s79","t":"s","n":79,"s":"( )控制系统适用于精度要求不高的控制系统。","o":["闭环","半闭环","双闭环","开环"],"a":"D"},{"id":"s80","t":"s","n":80,"s":"在晶闸管—电动机速度控制系统中电动机转速称为（ ）。","o":["控制量","被控量","扰动量","输入量"],"a":"B"},{"id":"s81","t":"s","n":81,"s":"不能平滑调速，稍转动电位器，电机就全速运行，一般由于( )输出有缺相。","o":["电动机","测速发电机","电源","离合器"],"a":"B"},{"id":"s82","t":"s","n":82,"s":"伺服电动机在自动控制系统中用作（ ）。","o":["有放大元件","信号元件","执行元件","整流元件"],"a":"C"},{"id":"s83","t":"s","n":83,"s":"直流环流的产生原因是( )。","o":["逆变电压平均值大于整流电压平均值","整流电压最大值大于逆变电压最大值","整流电压最大值大于逆变电压平均值","整流电压平均值大于逆变电压平均值"],"a":"D"},{"id":"s84","t":"s","n":84,"s":"当三端可调输出集成稳压器电路出现故障时，先检测的是( )。","o":["可调电阻RP","输入的电源电压是否正常","负载电路","稳压集成块"],"a":"B"},{"id":"s85","t":"s","n":85,"s":"为了减少晶闸管触发功率与控制极损耗，通常用( )信号触发晶闸管。","o":["交流或直流","交流","直流","脉冲"],"a":"D"},{"id":"s86","t":"s","n":86,"s":"要使主、从动轮方向的转向相反，则中间加（ ）个惰轮。","o":["奇数","4","偶数","2"],"a":"A"},{"id":"s87","t":"s","n":87,"s":"电桥法适用于（ ）电缆故障测寻。","o":["高阻性","低阻性","断路","三相电缆均有泄漏"],"a":"B"},{"id":"s88","t":"s","n":88,"s":"快速熔断器是防止晶闸管损坏的最后一种保护措施，当流过( )倍额定电流时，熔断时间小于20ms，且分断时产生的过电压较低。","o":["5","8","6","4"],"a":"A"},{"id":"s89","t":"s","n":89,"s":"真空三极管具有阳极、阴极和( )。","o":["发射极","栅极","控制极","基极"],"a":"B"},{"id":"s90","t":"s","n":90,"s":"调整电梯平衡系数时，需要调整的项目是（ ）。","o":["轿厢的额定载重量","轿厢內的载重物","对重的重量","轿厢的自重"],"a":"C"},{"id":"s91","t":"s","n":91,"s":"旋转变压器的主要用途是（ ）。","o":["自动控制系统中的随动系统和解算装置","变压变流","调节电机转速","输出电力传送电能"],"a":"A"},{"id":"s92","t":"s","n":92,"s":"伺服驱动过载可能是负载过大；或加减速时间设定过小；或( )；或编码器故障（编码器反馈脉冲与电动机转角不成比例地变化，有跳跃）。","o":["伺服电动机过载","负载有冲击","使用环境温度超过了规定值","编码器故障"],"a":"B"},{"id":"s93","t":"s","n":93,"s":"当电梯超载时，电梯（ ）。","o":["快速运行","不能关门","慢速运行","关门"],"a":"B"},{"id":"s94","t":"s","n":94,"s":"一个三进制计数器和一个八进制计数器串接起来后的最大计数值为( )。","o":["7","19","23","31"],"a":"C"},{"id":"s95","t":"s","n":95,"s":"无静差调速系统，比例调节器的输出电压与（ ）。","o":["输入电压成反比","输入电压成正比","输入电压平方成正比","输入电压平方成反比"],"a":"B"},{"id":"s96","t":"s","n":96,"s":"根据( )分析和判断故障是诊断所控制设备故障的基本方法。","o":["原理图","指令图","梯形图","逻辑功能图"],"a":"C"},{"id":"s97","t":"s","n":97,"s":"( )不是调节异步电动机的转速的参数。","o":["开环调速","变频调速","转差率调速","变极调速"],"a":"A"},{"id":"s98","t":"s","n":98,"s":"用信号发生器与示波器配合观测放大电路的波形时，为了避免不必要的机壳间的感应和干扰，必须将所有仪器的接地端（ ）。","o":["加以绝缘隔离","连接在一起","悬空","分别接地"],"a":"B"},{"id":"s99","t":"s","n":99,"s":"反电枢可逆电路由于电枢回路( ),适用于要求频繁启动而过渡过程时间短的生产机械，如可逆轧钢机、龙门刨等。","o":["电感小","电容大","电感大","电容小"],"a":"A"},{"id":"s100","t":"s","n":100,"s":"磁尺主要参数有动态范围、精度、分辨率，其中动态范围应为（ ）。","o":["1～40m","1～10m","1～50m","1～20m"],"a":"D"},{"id":"s101","t":"s","n":101,"s":"低压电缆最低绝缘电阻不低于（ ）时，可以投入运行。","o":["0.5MΩ","5MΩ","10MΩ","0.1MΩ"],"a":"D"},{"id":"s102","t":"s","n":102,"s":"运行中的变压器，如果分接开关的导电部分接触不良则会产生（ ）。","o":["放电打火使变压器老化","过热现象，甚至烧毁整个变压器","一次电流不稳定，使变压器绕组发热","过电压"],"a":"B"},{"id":"s103","t":"s","n":103,"s":"10KV 少油断路器安装地点的短路容量大于断路器额定断流容量的80%时，应该执行（ ）。","o":["动作4 次就检修","动作3 次就检修","动作5 次就检修","动作6 次就检修"],"a":"B"},{"id":"s104","t":"s","n":104,"s":"电梯在运行过程中，机房内的噪声不应大于（ ）dB。","o":["55","65","75","80"],"a":"D"},{"id":"s105","t":"s","n":105,"s":"架空线路施工过程中，拉线坑回填土时，拉线棒方向与拉线方向应（ ）。","o":["相反","无所谓","一致","交叉"],"a":"C"},{"id":"s106","t":"s","n":106,"s":"钢圈连接混凝土电杆的弯曲度，不得超过电杆强度的( )。","o":["3/1000","2/1000","5/1000","6/1000"],"a":"B"},{"id":"s107","t":"s","n":107,"s":"制作35KV 铝套管式中间接头时，由接头中心向两侧各量（ ）距离作为剖铅记号。","o":["200mm","325mm","250mm","450mm"],"a":"C"},{"id":"s108","t":"s","n":108,"s":"制作电缆终端头时耐油香蕉管应套到离线芯根部（ ）远处。","o":["10mm","20mm","40mm","30mm"],"a":"D"},{"id":"s109","t":"s","n":109,"s":"目前，电缆断线故障多数采用（ ）来测量。","o":["电压表","摇表","脉冲示波器","电流表"],"a":"C"},{"id":"s110","t":"s","n":110,"s":"共射极放大电路中β的表达式是（ ）。","o":["β=IB/IC","β=IB-IC","β=IC/IB","β=IC-IB"],"a":"C"},{"id":"s111","t":"s","n":111,"s":"双稳态触发器原来处于“1”态，想让它翻转为“0”态，可采用的触发方式是（ ）。","o":["计数触发","单边触发","多边触发","自控触发"],"a":"B"},{"id":"s112","t":"s","n":112,"s":"单向可控硅可靠道导通后，降低控制极电流，可控硅将（ ）。","o":["永远导通","仍然导通","关断","截止"],"a":"B"},{"id":"s113","t":"s","n":113,"s":"可控硅阻容移相桥触发电路，空载时的移相范围是（ ）。","o":["90°","150°","270°","180°"],"a":"D"},{"id":"s114","t":"s","n":114,"s":"直流放大器的最大特点是（ ）。","o":["有很好的稳定性","低频特性和上限频率以下的各个频率的信号都具有放大作用","具有直接耦合的特点","应用范围很广"],"a":"B"},{"id":"s115","t":"s","n":115,"s":"当计数器溢出时，下列说法正确的是（ ）。","o":["计数位全部为0，进位置1","最低计数位为1，期于全为0","最高计数位为1，期于全为0","计数位全部为1"],"a":"A"},{"id":"s116","t":"s","n":116,"s":"为了保证晶闸管准确、适时、可靠地被触发，对触发电路的要求是，应有足够大的触发电压，一般触发电压为（ ）V。","o":["4～10","4～6","4～8","2～4"],"a":"A"},{"id":"s117","t":"s","n":117,"s":"在给电子电路通电的情况下，通过测量部分电路的电流（ ），从而判断故障的方法，称为电流测量法。","o":["方向","大小","大小或方向均可","无规定"],"a":"B"},{"id":"s118","t":"s","n":118,"s":"如果晶体三极管的集电极电流大于它的最大允许电流，则该管（ ）。","o":["击穿","放大能力降低以及耗散功率增加损坏三极管","必定过热甚至烧坏","工作正常"],"a":"B"},{"id":"s119","t":"s","n":119,"s":"下列不属于晶体管共发射极电路特点的是（ ）。","o":["输出电阻大","具有较高的电流增益","输入电阻比较适中","具有较高的电压增益"],"a":"A"},{"id":"s120","t":"s","n":120,"s":"单管甲类功率放大器的最大功率转换效率是（ ）。","o":["50%","40%","45%","35%"],"a":"A"},{"id":"s121","t":"s","n":121,"s":"电感耦合振荡器的最大特点是（ ）。","o":["不引起振荡波形中高次谐波","适用于要求频率范围较宽的场所","输出波形好","用于工作频率低的场所"],"a":"B"},{"id":"s122","t":"s","n":122,"s":"电容耦合振荡器的最大特点是（ ）。","o":["适用于工作频率低的场所","输出波形好","频率调节容易","高次谐波分量大"],"a":"B"},{"id":"s123","t":"s","n":123,"s":"振荡器的振幅平衡条件是（ ）。","o":["AF>1","AF<1","AF>2","AF=1"],"a":"D"},{"id":"s124","t":"s","n":124,"s":"半波整流电路中，二极管起的作用是（ ）。","o":["限流作用","滤波作用","导通与截止作用","限幅作用"],"a":"C"},{"id":"s125","t":"s","n":125,"s":"电流速断电压闭锁保护是（ ）逻辑电路。","o":["或门","非门","复合门","与门"],"a":"D"},{"id":"s126","t":"s","n":126,"s":"异或门电路是在（ ）扩展的。","o":["与非门电路的基础上","或门电路的基础上","或非门电路的基础上","与门电路的基础上"],"a":"A"},{"id":"s127","t":"s","n":127,"s":"自激多谐振荡电路与单稳态电路的不同之处在于（ ）。","o":["外部电路对称","电路是不稳定的","没有管子长时间截止","两个管子都处于暂稳态变换之中"],"a":"D"},{"id":"s128","t":"s","n":128,"s":"单稳态电路同双稳态电路的不同点是（ ）。","o":["有一个稳定状态","电路是不对称的","有一个状态为暂稳态","电路的外部参数不同"],"a":"C"},{"id":"s129","t":"s","n":129,"s":"感性负载单相半波可控整流电路中，当可控硅导通角α=30°时，续流二极管的额定电流与晶闸管的正向额定电流相比，应满足的关系是（ ）。","o":["等于","小于","大于","不确定"],"a":"C"},{"id":"s130","t":"s","n":130,"s":"单相桥式半控整流电路的最大导通角为（ ）。","o":["150°","180°","120°","90°"],"a":"B"},{"id":"s131","t":"s","n":131,"s":"三相半波可控整流电路的移相范围是（ ）。","o":["180°","120°","150°","90°"],"a":"C"},{"id":"s132","t":"s","n":132,"s":"三相桥式半控整流使用了（ ）个可控硅。","o":["6","2","3","1"],"a":"C"},{"id":"s133","t":"s","n":133,"s":"晶闸管导通后，通过晶闸管的电流取决于（ ）。","o":["晶闸管的通态平均电流","电路的负载","触发电压","晶闸管阳、阴极间"],"a":"B"},{"id":"s134","t":"s","n":134,"s":"一般接地导体相互采用焊接连接，扁铁与角钢的搭接长度应（ ）宽度的2倍。","o":["小于","不小于","不大于","接近"],"a":"B"},{"id":"s135","t":"s","n":135,"s":"电容器安装时，三相电容量的差值应调配到最小，其最大与最小的差值不应超过平均值的（ ）。","o":["8%","5%","10%","15%"],"a":"B"},{"id":"s136","t":"s","n":136,"s":"电梯轿厢内的噪声来源主要是轿厢本体及（ ）的振动。","o":["曳引系统","开关门过程","导向系统","电磁元件"],"a":"C"},{"id":"s137","t":"s","n":137,"s":"为了保证电能表的准确度，其安装倾斜度的标准是（ ）。","o":["严格垂直安装","小于15°","小于30°","小于5°"],"a":"A"},{"id":"s138","t":"s","n":138,"s":"直流小母线和控制盘的电压小母线，在断开其他连接支路时，绝缘电阻应不小于（ ）。","o":["20MΩ","10MΩ","30MΩ","50MΩ"],"a":"B"},{"id":"s139","t":"s","n":139,"s":"变配电控制二次线在混凝土或砖结构上敷设时，导线与混凝土表面间距离一般为（ ）。","o":["20mm","10mm","50mm","100mm"],"a":"B"},{"id":"s140","t":"s","n":140,"s":"负荷是按星形连接，还是三角连接，是根据( )。","o":["电源电压大小,负荷额定电压大小而定","电源的额定电压而定","负荷所需电流大小而定","电源的接法而定"],"a":"A"},{"id":"s141","t":"s","n":141,"s":"隔离开关合闸时，三相刀片应同时投入，35KV 以下隔离开关，各相前、后 不得大于（ ）。","o":["1mm","5mm","3mm","7mm"],"a":"C"},{"id":"s142","t":"s","n":142,"s":"下列情况，自动重合闸装置不应动作的是（ ）。","o":["线路瞬间故障","线路永久故障","断路器状态与操作把手位置不对应引起的跳闸","值班员合闸断路器，线路有故障，引起断路器跳闸"],"a":"D"},{"id":"s143","t":"s","n":143,"s":"电气控制原理图中辅助电路的标号用( )标号。","o":["文字","图形","其他","数字"],"a":"D"},{"id":"s144","t":"s","n":144,"s":"电气控制原理图分为( )两部分。","o":["控制电路、保护电路","主电路、辅助电路","控制电路、信号电路","信号电路、保护电路"],"a":"B"},{"id":"s145","t":"s","n":145,"s":"当变压器高压侧一相熔丝断时，低压侧的情况是（ ）。","o":["两相电压降低一半，一相正常","一相有电","一相电压降低一半，两相正常","分部断电"],"a":"A"},{"id":"s146","t":"s","n":146,"s":"某一变电所供电瞬间断电，电力电容器全部跳闸，这是电容器的（ ）保护动作。","o":["速断","过流","单相接地","低电压"],"a":"D"},{"id":"s147","t":"s","n":147,"s":"旋转磁极式的同步电动机，一般用于（ ）的同步电动机中。","o":["大、中型","中、小型","小型","大、小型"],"a":"A"},{"id":"s148","t":"s","n":148,"s":"三相异步电动机在启动时，起转子绕组必须（ ）。","o":["通过电阻短接","短路","加入直流励磁","开路"],"a":"A"},{"id":"s149","t":"s","n":149,"s":"有关汽轮发电机安装前检查要点的叙述中，错误的是（ ）。","o":["用2500V 兆欧表测量转子绕组的绝缘电阻","检查转子绕组有无匝间短路，测量定、转子绕组的直流电阻及转子绕组的交流阻抗","测量定子绕组的绝缘电阻，并进行直流泄漏的交流耐压试验","检查转子轴颈的椭圆度、锥度和联轴器端面的不平行度"],"a":"A"},{"id":"s150","t":"s","n":150,"s":"发电机转子发生两点接地时，将出现下列一些异常现象，其中错误的是（ ）。","o":["励磁电流突然下降至零","定子电流增大，电压降低","励磁电流突然增大，转子产生振动","功率因数升高，甚至进相"],"a":"A"},{"id":"s151","t":"s","n":151,"s":"运行中的大、中容量同步发电机，一旦定子绕组出现匝间短路时，应（ ）。","o":["实施过压保护","进行灭磁","实施过流保护","立即停止运行"],"a":"B"},{"id":"s152","t":"s","n":152,"s":"发电机作调相机运行时，配电盘表针会出现（ ）的现象。","o":["发电机有功功率指示不变","无功功率指示下降","定子电流表指示梢高","功率因数表指示为零或很小"],"a":"D"},{"id":"s153","t":"s","n":153,"s":"变压器要经过（ ）测量合格后，才能进行交流耐压试验。","o":["上述全部项目","泄漏电流","介损","绝缘电阻和吸收比"],"a":"A"},{"id":"s154","t":"s","n":154,"s":"对于20KV 及以下互感器，一般（ ）进行一次介损试验。","o":["不作此项试验","1～2 年","1 年","1～3 年"],"a":"A"},{"id":"s155","t":"s","n":155,"s":"带平衡电位器的双反星形可控整流电路中两组三相半波电路（ ）。","o":["同时串联","同时并联","不能同时并联","不能同时串联"],"a":"B"},{"id":"s156","t":"s","n":156,"s":"电压负反馈调速系统通过稳定直流电动机电枢电压来达到稳定转速的目的，其原理是电枢电压的变化与（ ）。","o":["转速的变化成反比","转速的变化成正比","转速的变化平方成正比","转速的变化平方成反比"],"a":"B"},{"id":"s157","t":"s","n":157,"s":"带有速度、电流双闭环的调速系统，在启动时调节作用主要靠（ ）调节器产生。","o":["速度","电流","负反馈电压","电流、速度两个"],"a":"B"},{"id":"s158","t":"s","n":158,"s":"（ ）是指微机对生产过程中的有关参数进行控制。","o":["启动控制","顺序控制","参数控制","数值控制"],"a":"D"},{"id":"s159","t":"s","n":159,"s":"直齿圆柱齿轮工作时冲击、振动较严重的原因是（ ）。","o":["材料的硬度高","齿面间存在滑动","材质不匹配","突然啮合，突然脱离"],"a":"D"},{"id":"s160","t":"s","n":160,"s":"（ ）属于点位控制数控机床。","o":["加工中心","数控钻床","数控铣床","数控机床"],"a":"A"},{"id":"s161","t":"s","n":161,"s":"数控系统内的( )上有许多短路棒。","o":["印制电路板","操作板","控制板","直流稳压电源"],"a":"A"},{"id":"s162","t":"s","n":162,"s":"电源相序可用相序表或( )来测量。","o":["万用表","图形仪","兆欧表","示波器"],"a":"D"},{"id":"s163","t":"s","n":163,"s":"如下变流器中，输出电压可能出现负值的变流电路是（ ）。","o":["单相桥式半控整流带电阻性负载电路","三相半波可控整流带阻感负载电路","接有续流二极管的三相半控桥式整流电路","接有续流二极管的单相半波可控整流电路"],"a":"B"},{"id":"s164","t":"s","n":164,"s":"检查机床回零开关是否正常，运动有无爬行情况。各轴运动极限的( )工作是否起作用。","o":["软件限位和硬件限位","软件限位或硬件限位","软件限位","硬件限位"],"a":"A"},{"id":"s165","t":"s","n":165,"s":"对于中小型电力变压器,投入运行后每隔( )要大修一次。","o":["1 年","2～4 年","15 年","5～10 年"],"a":"D"},{"id":"s166","t":"s","n":166,"s":"对于（ ）电气设备在投入运行前有时需要重新进行必要的试验。","o":["短时运行","临时停电","长期搁置","正常使用"],"a":"C"},{"id":"s167","t":"s","n":167,"s":"回转工作台转90o侧面铣刀铣削的直角精度属于数控机床的( )精度检验。","o":["切削","定位","几何","联动"],"a":"A"},{"id":"s168","t":"s","n":168,"s":"一般作为空行程运行，使刀具快速移动到所需位置上的是( )。","o":["快速点定位","螺纹插补","程序延时","返回参考点"],"a":"A"},{"id":"s169","t":"s","n":169,"s":"JWK 经济型数控机床通过编程指令可实现的功能有( )。","o":["圆弧插补","其他都是","程序循环","直线插补"],"a":"B"},{"id":"s170","t":"s","n":170,"s":"少油开关弹簧缓冲器的行程一般规定在合闸位置时为（ ）。","o":["10mm±1mm","12mm±1mm","15mm±1mm","14mm±1mm"],"a":"D"},{"id":"s171","t":"s","n":171,"s":"为了方便( )和减少加工程序的执行时间，参考点应设在靠近工件的地方，在换刀前让刀架先退出一段距离以便刀架转位，转位完毕后，再按相同距离返回。","o":["编程","检查","测试","读写"],"a":"A"},{"id":"s172","t":"s","n":172,"s":"JWK 型经济型数控机床系统电源切断后，必须等待( )s 以上方可再次接通电源。不允许连续开、关电源。","o":["10","20","30","40"],"a":"C"},{"id":"s173","t":"s","n":173,"s":"为了保护零件加工程序，数控系统有专用电池作为存储器RAM 芯片的备用电源。当电池电压小于( ) V 时，需要换电池，更换时应按有关说明书的方法进行。","o":["1.5","3","4.5","6"],"a":"C"},{"id":"s174","t":"s","n":174,"s":"电阻器的阻值及精度等级一般用文字或数字直接印于电阻器上。银色允许偏差为( )。","o":["5%","10%","15%","20%"],"a":"B"},{"id":"s175","t":"s","n":175,"s":"同步电动机通常应工作在( )。","o":["欠励状态","正励状态","空载过励状态","过励状态"],"a":"D"},{"id":"s176","t":"s","n":176,"s":"所谓三相对称负荷就是( )。","o":["三相的负荷阻抗相等,阻抗角相同","三相的相电压相等且相位互差120°","三相的相电流有效值相等,三相的相电压相等且相位互差120°","三相的相电流有效值相等"],"a":"A"},{"id":"s177","t":"s","n":177,"s":"过零触发控制电路主要由同步信号电路、门限控制信号电路、触发电路、( )、保护电路等部分组成。","o":["晶闸管主电路","二极管主电路","电阻主电路","三极管主电路"],"a":"A"},{"id":"s178","t":"s","n":178,"s":"JK 触发电路中，当J=0、K=1、Qn=1 时，触发器的状态( )。","o":["置0","置1","不定","不变"],"a":"A"},{"id":"s179","t":"s","n":179,"s":"计数器就是对数字电路中的脉冲进行计数的部件。它是由触发器构成的。如果按计数器翻转的次序来分类，可把计数器分为( )。","o":["异步式和加法计数器","异步式和减法计数器","异步式和可避计数器","异步式和同步式"],"a":"D"},{"id":"s180","t":"s","n":180,"s":"敷设在易受机械损伤部位的导线应采用( )保护。","o":["耐热瓷管","铁管或金属软管","塑料管","铁管"],"a":"B"},{"id":"s181","t":"s","n":181,"s":"分析和计算复杂电路的主要依据是（ ）。","o":["欧姆定律","基尔霍夫定律","叠加原理","欧姆定律和基尔霍夫定律"],"a":"D"},{"id":"s182","t":"s","n":182,"s":"已知某三极管的集电极电阻RC=1KΩ，电源电压UGB=6V 三极管的发射极直接接地，则三极管截止时的集电极电流IC 为（ ）。","o":["6mA","∞","0","5.3mA"],"a":"C"},{"id":"s183","t":"s","n":183,"s":"磁场（ ）。","o":["无方向","无间断的","有方向","方向是变化的"],"a":"C"},{"id":"s184","t":"s","n":184,"s":"判断由电流产生的磁场的方向用（ ）。","o":["安培定则","右手定则","电动机定则","左手定则"],"a":"A"},{"id":"s185","t":"s","n":185,"s":"下列中，磁感应强度相同的是（ ）。","o":["地球同经度线各点","U 型磁场周围各点","地球同纬度线各点","条型磁场周围各点"],"a":"C"},{"id":"s186","t":"s","n":186,"s":"磁通的单位是（ ）。","o":["高斯","韦·平方米","韦伯","平方米"],"a":"C"},{"id":"s187","t":"s","n":187,"s":"下列材料中（ ）的μr<1。","o":["铁","空气","镍","铜"],"a":"D"},{"id":"s188","t":"s","n":188,"s":"磁路中的磁通与磁通势（ ）。","o":["无关","成反比","成正比","相等"],"a":"C"},{"id":"s189","t":"s","n":189,"s":"判断感应电动势的大小要用（ ）。","o":["楞次定律","法拉第定律","安培定律","欧姆定律"],"a":"B"},{"id":"s190","t":"s","n":190,"s":"互感电动势的方向由（ ）确定。","o":["楞次定律","戴维南定律","电流定律","欧姆定律"],"a":"A"},{"id":"s191","t":"s","n":191,"s":"楞次定律是反映（ ）方向的。","o":["电流","电压","感应电动势","磁通"],"a":"C"},{"id":"s192","t":"s","n":192,"s":"直流电动机的电枢绕组若为单波绕阻，则绕阻的并联支路数等于（ ）。","o":["主磁极数","主磁极对数","4 条","2 条"],"a":"D"},{"id":"s193","t":"s","n":193,"s":"并励电动机的过载系数一般为（ ）。","o":["1～1.5","1.5～2","2.5～3","2～2.5"],"a":"D"},{"id":"s194","t":"s","n":194,"s":"并励电动机在未调速情况下，转速高于额定转速，其原因可能是（ ）。","o":["绝缘老化","电枢绕组断路","激磁绕组匝间短路","换向器片间短路"],"a":"C"},{"id":"s195","t":"s","n":195,"s":"在过载冲击时，电枢反应引起主磁极下面的磁场将发生畸变故障，处理方法是（ ）。","o":["更换换向器","移动电刷位置","选择适当电刷","采用补偿绕组"],"a":"D"},{"id":"s196","t":"s","n":196,"s":"研磨电刷的接触面时，应使用（ ）玻璃砂布。","o":["00#","150#","180#","80#"],"a":"A"},{"id":"s197","t":"s","n":197,"s":"35KV 油开关的主要结构由（ ）。","o":["提升机构、油箱和导电系统","电容套管和电流互感器操作机构","油箱、铁架、升降机构和导电系统","油箱灭弧室、导电系统和电容套管"],"a":"D"},{"id":"s198","t":"s","n":198,"s":"隔离开关不能用于下述（ ）操作。","o":["切开负荷电流","切断小电流，隔离带电设置","隔离电源倒闸操作，切断小电流","隔离电源，隔离故障，侧面操作"],"a":"A"},{"id":"s199","t":"s","n":199,"s":"结合滤波器在电力载波通道中所起的作用是（ ）。","o":["载波机与高压电力线间高频信号的通路","对高频信号具有足够大的阻抗","抑制通带外的干扰及阻抗匹配作用","提高发信电平放大信号"],"a":"C"},{"id":"s200","t":"s","n":200,"s":"高压泄漏试验，应选用（ ）。","o":["交流耐压机","高压摇表","高压直流整流设备","电桥"],"a":"C"},{"id":"s201","t":"s","n":201,"s":"不是按经济型数控机床按驱动和定位方式可划分的是( )。","o":["半闭环连续控制式","交流点位式","步进电动机式","闭环连续控制式"],"a":"D"},{"id":"s202","t":"s","n":202,"s":"理想的驱动电源应使通过步进电动机很大电感量的绕组电流尽量接近( )。","o":["正弦波","三角波","梯形波","矩形波"],"a":"D"},{"id":"s203","t":"s","n":203,"s":"直流电动机温升试验时，测量温度的方法有（ ）种。","o":["2","4","3","5"],"a":"C"},{"id":"s204","t":"s","n":204,"s":"晶闸管中频电源可能对电网50HZ 工频电压波形产生影响，必须在电源进线中采取( )措施来减小影响。","o":["耦合","整流","滤波","隔离"],"a":"C"},{"id":"s205","t":"s","n":205,"s":"由于直流电机需要换向，致使直流电机只能做成（ ）式。","o":["磁极旋转","电枢旋转","罩极","隐极"],"a":"B"},{"id":"s206","t":"s","n":206,"s":"凸缘联轴器（ ）。","o":["属于联性联轴器","对联接的轴间的偏移具有补偿能力","结构简单，使用方便，可传递较大的扭矩","属于可移式联轴器"],"a":"A"},{"id":"s207","t":"s","n":207,"s":"发电机――电动机组调速系统是一种典型的（ ）调速自控系统。","o":["半闭环","开环","单闭环","全闭环"],"a":"B"},{"id":"s208","t":"s","n":208,"s":"总体检查时检查运行指示灯是否亮。如果不亮，则检查( )。","o":["电源电路","电源指示灯是否正常","输入输出是否正常","有何异常情况发生"],"a":"D"},{"id":"s209","t":"s","n":209,"s":"强供电回路的管线尽量避免与可编程序控制器输出、输入回路( )，且线路不在同一根管路内。","o":["交叉","平行","远离","垂直"],"a":"B"},{"id":"s210","t":"s","n":210,"s":"PLC 交流集选电梯，当电梯（司机状态）3 层向上运动时，2 层有人按向上呼梯按钮，4 层有人按向下呼梯按钮，同时轿厢内司机接下5 层指令按钮与直达按钮，则电梯应停于（ ）层。","o":["4","2","1","5"],"a":"D"},{"id":"s211","t":"s","n":211,"s":"电力晶体管GTR 内部电流是由（ ）形成的。","o":["电子","空穴","有电子但无空穴","电子和空穴"],"a":"D"},{"id":"s212","t":"s","n":212,"s":"硅稳压管稳压电路适用于（ ）的场合。","o":["负载小","低电压","负载大","高电压"],"a":"A"},{"id":"s213","t":"s","n":213,"s":"V 形带轮的材料最常用（ ）。","o":["球磨铸铁","灰铸铁","45 钢","青铜"],"a":"B"},{"id":"s214","t":"s","n":214,"s":"三相电动机负载及整流电源要求较高的场合一般采用（ ）整流电路。","o":["单相半","三相半波","三相桥式全控","三相桥式半控"],"a":"D"},{"id":"s215","t":"s","n":215,"s":"晶闸管的伏安特性是指 ( ) 。","o":["阳极电压与门极电流的关系","门极电压与门极电流的关系","门极电压与阳极电流的关系","阳极电压与阳极电流的关系"],"a":"D"},{"id":"s216","t":"s","n":216,"s":"电容三点式震荡电路的局限不包括( )。","o":["两个电容的取值不能太小","频率精度大大降低","最高频率比电感式的低","受晶体管极间电容的影响大"],"a":"C"},{"id":"s217","t":"s","n":217,"s":"可实现有源逆变的电路为( )。","o":["三相半控桥整流桥电路","三相半波可控整流电路","单相全控桥接续流二极管电路","单相半控桥整流电路"],"a":"B"},{"id":"s218","t":"s","n":218,"s":"( )阶段读入输入信号，将按钮、开关触点、传感器等输入信号读入到存储器内，读入的信号一直保持到下一次该信号再次被读入时为止，即经过一个扫描周期。","o":["输入采样","输出刷新","程序执行","输出采样"],"a":"A"},{"id":"s219","t":"s","n":219,"s":"下面哪种功能不属于变流的功能( )。","o":["有源逆变","交流调压","直流斩波","变压器降压"],"a":"D"},{"id":"s220","t":"s","n":220,"s":"在梯形图编程中，传递指令（MOV）功能是（ ）。","o":["将原通道内容传送给目的通道中，原通道内容清零。","将目的通道内容传送给原通道中，目的通道内容清零。","将原通道内容传送给目的通道中，原通道内容不变。","将目的通道内容传送给原通道中，目的通道内容不变。"],"a":"C"},{"id":"s221","t":"s","n":221,"s":"晶闸管可控整流电路中，晶闸管触发脉冲信号应有一定的宽度，脉冲前沿要陡。电感性负载一般是1ms，相当于50Hz 正弦波的( )。","o":["360°","90°","18°","180°"],"a":"C"},{"id":"s222","t":"s","n":222,"s":"交流换向器电动机的调速原理是（ ）调速。","o":["变频","弱磁","采用定子绕组接线改变电动机极对数字","在电动机定子副绕组中加入可调节电势Ｅx"],"a":"D"},{"id":"s223","t":"s","n":223,"s":"电力晶体管的缺点是（ ）。","o":["易受二次击穿而损坏","必须具备专门的强迫换流电路","具有线性放大特性","功率容量小"],"a":"A"},{"id":"s224","t":"s","n":224,"s":"电子管作为放大器工作，若固定栅偏压高于截止栅压，而且在栅极输入整个变化过程中电子管都处于导电状态，这样的工作状态叫( )类工作状态。","o":["乙","甲乙","甲","丙"],"a":"C"},{"id":"s225","t":"s","n":225,"s":"测速发电机有两套绕组，其输出绕组与（ ）相结。","o":["电压信号","短路导线","低阻抗仪表","高阻抗仪表"],"a":"D"},{"id":"s226","t":"s","n":226,"s":"准备功能又叫( )。","o":["G 功能","T 功能","S 功能","M 功能"],"a":"A"},{"id":"s227","t":"s","n":227,"s":"并联变压器要求变比相等的原因是（ ）。","o":["避免输出电压波动","避免产生环流","避免两变压器负荷分配不均匀","避免电流不稳定"],"a":"B"},{"id":"s228","t":"s","n":228,"s":"异步电机变频调速，( )。","o":["任何情况下变频一定变压","在大于额定转速区域，变频不变压","在大于额定转速区域，变频也要变压","在小于额定转速区域，变频不变压"],"a":"B"},{"id":"s229","t":"s","n":229,"s":"电磁转差离合器与负载相连的部分是( )。","o":["离合器","滑差电动机","电枢","磁极"],"a":"D"},{"id":"s230","t":"s","n":230,"s":"电缆保护管内径应小于电缆外径的（ ）倍。","o":["1.2","1.3","1.4","1.5"],"a":"D"},{"id":"s231","t":"s","n":231,"s":"S 功能设定有两种输出方式供选择：分别是( )。","o":["逻辑式和数字方式","编码方式和逻辑式","编码方式和数字方式","编制方式和数字方式"],"a":"C"},{"id":"s232","t":"s","n":232,"s":"喷灯的使用方法为加油、预热、（ ）、熄火。","o":["喷火","点火","加压","加热"],"a":"A"},{"id":"s233","t":"s","n":233,"s":"施工现场检查临时用电安全检查内容不包括（ ）。","o":["外电防护","接地与接零保护系统","配电箱","电压范围"],"a":"D"},{"id":"s234","t":"s","n":234,"s":"时序逻辑电路的一般结构由组合电路与（ ）组成。","o":["全加器","译码器","触发器","选择器"],"a":"C"},{"id":"s235","t":"s","n":235,"s":"高频大功率三极管（NPN 型硅材料）管用( )表示。","o":["3DA","3AD","3CT","3DD"],"a":"A"},{"id":"s236","t":"s","n":236,"s":"有配合关系的尺寸，其配合的( )等级，应根据分析查阅有关资料来确定。","o":["性质","性质或公差","性质和公差","公差"],"a":"C"},{"id":"s237","t":"s","n":237,"s":"( )尺寸与基本尺寸的代数差称为下偏差。","o":["最小极限","最大","最大极限","最小"],"a":"A"},{"id":"s238","t":"s","n":238,"s":"收音机发出的交流声属于( )。","o":["电磁噪声","气体动力噪声","电力噪声","机械噪声"],"a":"A"},{"id":"s239","t":"s","n":239,"s":"在A/D、D/A 转换器中，衡量转换器的转换精度常用的参数是( )。","o":["分辨率","转换误差","分辨率和转换误差","参考电压"],"a":"C"},{"id":"s240","t":"s","n":240,"s":"下列施工图内容中，属于电气施工图的是( )。","o":["系统图","安装图","立面图","平面图"],"a":"A"},{"id":"s241","t":"s","n":241,"s":"以下不属于 PLC 硬件故障类型的是( )。","o":["输入模块故障","输出模块故障","接触器互锁故障","CPU 模块故障"],"a":"C"},{"id":"s242","t":"s","n":242,"s":"PLC 输入模块本身的故障描述不正确的是( )。","o":["没有输入信号，输入模块指示灯不亮是输入模块的常见故障","输入模块电源极性接反一般不会烧毁输入端口的元器件","PLC 输入模块的故障主要是由控制程序编制错误造成的","PLC 输入使用内部电源，若接通信号时指示灯不亮，很可能是内部电源烧坏"],"a":"C"},{"id":"s243","t":"s","n":243,"s":"PLC 输入模块的故障处理方法正确的是( )。","o":["有输入信号但是输入模块指示灯不亮时应检查是否输入直流电源正负极接反","若一个LED 逻辑指示器变暗，而且根据编程器件监视器，处理器未识别输入，则输入模块可能存在故障","出现输入故障时，首先检查LED 电源指示器是否响应现场元件（如按钮、行程开关等）","以上都是"],"a":"D"},{"id":"s244","t":"s","n":244,"s":"PLC 输出模块故障分析处理描述不正确的是( )。","o":["PLC 输出模块常见的故障包括供电电源故障、端子接线故障、模板安装故障、现场操作故障等","PLC 输出模块没有按要求输出信号时，应先检查输出电路是否出现断路","PLC 输出模块没有按要求输出信号时，要先检查接触器是否出现断路","PLC 输出模块故障与控制程序没有直接关系"],"a":"C"},{"id":"s245","t":"s","n":245,"s":"PLC 输出模块没有输出信号可能是( )造成的。① 输出供电有问题② 输出电路出现断路，接线有松动③ 输出模块安装时出现问题④ 输出模块的元器件损坏","o":["①②③④","②③④","①③④","①②④"],"a":"A"},{"id":"s246","t":"s","n":246,"s":"“BATT”变色灯是( )指示灯。","o":["交流总电源","后备电源","VDC24","VDC5"],"a":"B"},{"id":"s247","t":"s","n":247,"s":"PLC 中“BATT”灯出现红色表示( )。","o":["过载","短路","正常","故障"],"a":"D"},{"id":"s248","t":"s","n":248,"s":"以下不属于PLC 与计算机正确连接方式的是( )。","o":["电话线通信连接","RS422 通信连接","RS485 通信连接","RS232 通信连接"],"a":"A"},{"id":"s249","t":"s","n":249,"s":"西门子S7-200PLC 梯形图程序里，无法连接到左母线的指令是( )。","o":["NOP 指令","取反指令","比较指令","触点指令"],"a":"B"},{"id":"s250","t":"s","n":250,"s":"以下不属于PLC 外围输入故障的是( )。","o":["接近开关故障","按钮开关短路","电机故障","传感器故障"],"a":"C"},{"id":"s251","t":"s","n":251,"s":"自动调速系统中比例调节器的输出只取决于( )。","o":["反馈量的现状","输入偏差量的全部历史","给定量的现状","输入偏差量的现状"],"a":"D"},{"id":"s252","t":"s","n":252,"s":"自动调速系统稳态时，积分调节器中积分电容两端电压( )。","o":["一定为零","不确定","等于输入电压","保持在输入信号为零前的对偏差的积分值"],"a":"D"},{"id":"s253","t":"s","n":253,"s":"无静差调速系统在( )。","o":["静态(稳态)有误差、动态过程中无误差","静态(稳态)无误差、动态过程中有误差","静态(稳态)与动态过程中都是无误差","静态(稳态)与动态过程中都是有误差"],"a":"B"},{"id":"s254","t":"s","n":254,"s":"微分环节和积分环节的传递函数( )。","o":["互为倒数","互为约数","线性关系","不相关"],"a":"A"},{"id":"s255","t":"s","n":255,"s":"直流双闭环调速系统引入转速微分负反馈后，可增强调速系统的抗干扰性能，使负载扰动下的( )大大减小，但系统恢复时间有所延长。","o":["静态转速降","动态转速降","电枢电压超调","电枢电流超调"],"a":"B"},{"id":"s256","t":"s","n":256,"s":"若给PI 调节器输入阶跃信号，其输出电压随积分的过程积累，其数值不断增长( )。","o":["直至饱和","无限增大","不确定","直至电路损坏"],"a":"A"},{"id":"s257","t":"s","n":257,"s":"双闭环无静差调速系统中转速调节器一般采用( )。","o":["PI 调节器","P 调节器","I 调节器","PD 调节器"],"a":"A"},{"id":"s258","t":"s","n":258,"s":"( )是直流调速系统的主要调速方案。","o":["减弱励磁磁通","调节电枢电压","改变电枢回路电阻R","增强励磁磁通"],"a":"B"},{"id":"s259","t":"s","n":259,"s":"在带PI调节器无静差直流调速系统中，电流截止负反馈在电动机( )作用。","o":["堵转时起限流保护","堵转时不起","正常运行时起限流保护","正常运行时起电流截止"],"a":"A"},{"id":"s260","t":"s","n":260,"s":"转速负反馈调速系统对检测反馈元件和给定电压造成的转速扰动( )补偿能力。","o":["有","没有","对前者有补偿能力，对后者无","对前者无补偿能力，对后者有"],"a":"B"},{"id":"s261","t":"s","n":261,"s":"电压负反馈调速系统中，电流正反馈是补偿环节，一般实行( )。","o":["欠补偿","全补偿","过补偿","温度补偿"],"a":"A"},{"id":"s262","t":"s","n":262,"s":"电压负反馈能克服( )压降所引起的转速降。","o":["电枢电阻","整流器内阻","电枢回路电阻","电刷接触电阻"],"a":"B"},{"id":"s263","t":"s","n":263,"s":"电压电流双闭环系统中电流调节器ACR 的输入信号有( )。","o":["速度给定信号与电压调节器的输出信号","电流反馈信号与电压反馈信号","电流反馈信号与电压调节器的输出信号","电流反馈信号与速度给定信号"],"a":"C"},{"id":"s264","t":"s","n":264,"s":"欧陆514 调速器组成的电压电流双闭环系统运行中出现负载加重转速升高现象，可能的原因是( )。","o":["电流正反馈欠补偿","电流正反馈过补偿","电流正反馈全补偿","电流正反馈没补偿"],"a":"B"},{"id":"s265","t":"s","n":265,"s":"双闭环调速系统包括电流环和速度环，其中两环之间关系是( )。","o":["电流环为内环，速度环为外环","电流环为外环，速度环为内环","电流环与速度环并联","两环无所谓内外均可"],"a":"A"},{"id":"s266","t":"s","n":266,"s":"转速、电流双闭环调速系统中不加电流截止负反馈，是因为其主电路电流的限流( )。","o":["由比例积分调节器保证","由转速环控制","由电流环控制","由速度调节器的限幅保证"],"a":"D"},{"id":"s267","t":"s","n":267,"s":"目前三相交流调压调速系统中广泛采用( )来调节交流电压。","o":["晶闸管相位控制","晶闸管周波控制","晶闸管PWM 控制","GTO 相位控制"],"a":"A"},{"id":"s268","t":"s","n":268,"s":"在闭环控制交流调压调速系统中，负载变化范围受限于( )时的机械特性，超出此范围闭环系统便失去控制能力。","o":["电压为U1nom","电压为U1min","电压为U1nom 与U1min","电压为1.2U1nom"],"a":"C"},{"id":"s269","t":"s","n":269,"s":"某异步电动机的额定功率是10kW，额定转速是955r/min，则该电动机的额定转矩是( )。","o":["100 N·m","10 N·m","955 N·m","95.5 N·m"],"a":"A"},{"id":"s270","t":"s","n":270,"s":"U/f 控制方式是变频器的基本控制方式。对于风机和泵类负载转矩补偿应选择在额定电压和基本频率下进行( )。","o":["线性补偿","分段补偿","平方率补偿","以上均可"],"a":"C"},{"id":"s271","t":"s","n":271,"s":"( )是直流调速系统的主要控制方案。","o":["改变电源频率","调节电枢电压","改变电枢回路电阻R","改变转差率"],"a":"B"},{"id":"s272","t":"s","n":272,"s":"当系统的机械特性硬度一定时，如要求的静差率s 越小，则调速范围D ( )","o":["越大","越小","可大可小","不变"],"a":"B"},{"id":"s273","t":"s","n":273,"s":"直流测速发电机输出电压与转速之间并不能保持确定的线性关系。其主要原因是( )。","o":["电枢电阻的压降","电枢电流的去磁作用","负载电阻的非线性","电刷的接触压降"],"a":"B"},{"id":"s274","t":"s","n":274,"s":"为了减小直流测速发电机的误差，使用时必须注意( )。","o":["外接负载电阻尽可能大些","外接负载电阻尽可能小些","外接负载电阻等于规定的最小负载电阻","在直流测速发电机输出端并接滤波电路"],"a":"A"},{"id":"s275","t":"s","n":275,"s":"直流调速装置安装的现场调试主要有硬件检查和程序（软件）调试两大内容。调试前准备工作主要有：收集有关资料、熟悉并阅读有关资料和说明书、主设备调试用仪表的准备。其中要( )，这是日后正确使用设备的基础。","o":["程序（软件）调试","熟悉并阅读有关资料和说明书","设备接线检查","硬件检查"],"a":"B"},{"id":"s276","t":"s","n":276,"s":"直流调速装置调试的原则一般是( )。","o":["先检查，后调试","先调试，后检查","先系统调试，后单机调试","边检查边调试"],"a":"A"},{"id":"s277","t":"s","n":277,"s":"欧陆514 直流调速装置是( )直流可逆调速系统。","o":["逻辑无环流","可控环流","逻辑选触无环流","α=β配合控制有环流"],"a":"C"},{"id":"s278","t":"s","n":278,"s":"交流测速发电机有空心杯转子异步测速发电机、笼型转子异步测速发电机和同步测速发电机3 种，目前应用最为广泛的是( )。","o":["同步测速发电机","笼式转子异步测速发电机","空心杯转子异步测速发电机","同步测速发电机和笼式转子异步测速发电机"],"a":"C"},{"id":"s279","t":"s","n":279,"s":"为减小线性误差交流异步测速发电机都采用电阻率大的非磁性空心杯转子，此外( )，也可减小线性误差。","o":["提高励磁电源频率","降低励磁电源频率","提高励磁电源电压","降低励磁电源电压"],"a":"A"},{"id":"s280","t":"s","n":280,"s":"为减小剩余电压误差，其办法有( )。","o":["提高励磁电源频率、在输出绕组电路补偿","降低励磁电源频率、提高制造精度和加工精度","提高制造精度和加工精度，在输入绕组电路补偿","提高制造精度和加工精度，在输出绕组电路补偿"],"a":"D"},{"id":"s281","t":"s","n":281,"s":"控制电缆的布线应尽可能远离供电电源线，( )。","o":["用平行电缆且单独的走线槽","用屏蔽电缆且汇入走线槽","用屏蔽电缆且单独的走线槽","用双绞线且汇入走线槽"],"a":"C"},{"id":"s282","t":"s","n":282,"s":"变频器连接同步电动机或连接几台电动机时，变频器必须在( )特性下工作。","o":["恒磁通调速","调压调速","恒功率调速","变阻调速"],"a":"A"},{"id":"s283","t":"s","n":283,"s":"步进电动机的( )与脉冲频率f 成正比。","o":["线位移或角位移","线位移或转速n","转速n 或线速度v","转速n 或角位移"],"a":"C"},{"id":"s284","t":"s","n":284,"s":"步进电动机的速度与( )有关。","o":["环境温度","负载变化","与驱动电源电压的大小","脉冲频率"],"a":"D"},{"id":"s285","t":"s","n":285,"s":"三相单三拍运行、三相双三拍运行、三相单双六拍运行。其通电顺序分别是( )。","o":["A－B－C－A AB－BC－CA－AB A-AB-B-BC-C-CA-A","AB－BC－CA－AB A－B－C－A A-AB-B-BC-C-CA-A","A－B－C－A A-AB-B-BC-C-CA-A AB－BC－CA－AB","A-AB-B-BC-C-CA-A A－B－C－A AB－BC－CA－AB"],"a":"A"},{"id":"s286","t":"s","n":286,"s":"三相双三拍运行，转子齿数ZR=40 的反应式步进电动机，转子以每拍( )的方式运转。","o":["5°","9°","3°","6°"],"a":"C"},{"id":"s287","t":"s","n":287,"s":"直流电动机运行中转速突然急速升高并失控。故障原因可能是( )","o":["突然失去励磁电流","电枢电压过大","电枢电流过大","励磁电流过大"],"a":"A"},{"id":"s288","t":"s","n":288,"s":"欧陆514 双闭环直流调速系统运行中，测速发电机反馈线松脱，系统会出现( )。","o":["转速迅速下降后停车、报警并跳闸","转速迅速升高到最大、报警并跳闸","转速保持不变","转速先升高后恢复正常"],"a":"B"},{"id":"s289","t":"s","n":289,"s":"自动调速系统中转速反馈系数过大会引起( )。","o":["系统稳态指标下降","系统最高转速下降","系统最高转速过高","电动机停转"],"a":"B"},{"id":"s290","t":"s","n":290,"s":"测速发电机的灵敏度高，对调速系统性能的影响是( )。","o":["没有影响","有影响，灵敏度越高越好","有影响，灵敏度越低越好","对系统的稳态性能没有影响，但对系统的动态性能有影响"],"a":"D"},{"id":"s291","t":"s","n":291,"s":"变频器停车过程中出现过电压故障，原因可能是：( )。","o":["斜波时间设置过短","转矩提升功能设置不当","散热不良","电源电压不稳"],"a":"A"},{"id":"s292","t":"s","n":292,"s":"变频调速时，电动机出现过热， ( )的方法不能改进过热问题。","o":["尽可能不要低频运行","换用变频电动机","改进散热条件","提高电源电压"],"a":"D"},{"id":"s293","t":"s","n":293,"s":"西门子MM400 系列变频器把全部参数分成10 大类，每类又分( )个层级。","o":["4","3","2","5"],"a":"A"},{"id":"s294","t":"s","n":294,"s":"MM420 变频器执行下列设置：P0010=1，P0970=1，其设置的功能是( )。","o":["恢复出厂值","参数清零","恢复以前设置","参数设置重新开始"],"a":"A"},{"id":"s295","t":"s","n":295,"s":"变频器轻载低频运行，启动时过电流报警。此故障的原因可能是( )。","o":["U/f 比设置过高","电动机故障","电动机参数设置不当","电动机容量小"],"a":"A"},{"id":"s296","t":"s","n":296,"s":"变频电动机与通用感应电动机相比其特点是( )。","o":["低频工作时电动机的损耗小","低频工作时电动机的损耗大","频率范围大","效率高"],"a":"A"},{"id":"s297","t":"s","n":297,"s":"电网电压正常情况下，启动过程中软启动器“欠电压保护” 动作。此故障原因不可能是( )。","o":["“欠电压保护”动作整定值设定不正确","减轻电流限幅值","电压取样电路故障","晶闸管模块故障"],"a":"D"},{"id":"s298","t":"s","n":298,"s":"电动机的启动转矩必须大于负载转矩。若软启动器不能启动某负载，则可改用的启动设备是( )。","o":["采用内三角接法的软启动器","采用外三角接法的软启动器","变频器","星—三角启动器"],"a":"C"},{"id":"s299","t":"s","n":299,"s":"步进电动机双三拍与单三拍工作方式比较，前者( )。","o":["电磁转矩小、易产生失步","电磁转矩小、不易产生失步","电磁转矩大、易产生失步","电磁转矩大、不易产生失步"],"a":"D"},{"id":"s300","t":"s","n":300,"s":"把单双六拍工作方式改为双三拍工作方式运行，可能使步进电动机严重过热，其故障原因是( )。","o":["负载过大","负载或大或小","负载转动惯量过大","工作方式不对"],"a":"D"},{"id":"s301","t":"s","n":301,"s":"不符合文明生产要求的做法是( )。","o":["爱惜企业的设备、工具和材料","下班前搞好工作现场的环境卫生","工具使用后按规定放置到工具箱中","冒险带电作业"],"a":"D"},{"id":"s302","t":"s","n":302,"s":"在RL 串联电路中，UR=16V，UL=12V，则总电压为( )。","o":["28V","20V","2V","4"],"a":"B"},{"id":"s303","t":"s","n":303,"s":"提高供电线路的功率因数，下列说法正确的是( )。","o":["减少了用电设备中无用的无功功率","可以节省电能","减少了用电设备的有功功率，提高了电源设备的容量","可提高电源设备的利用率并减小输电线路中的功率损耗"],"a":"D"},{"id":"s304","t":"s","n":304,"s":"三相对称电路是指( )。","o":["三相电源对称的电路","三相负载对称的电路","三相电源和三相负载都是对称的电路","三相电源对称和三相负载阻抗相等的电路"],"a":"C"},{"id":"s305","t":"s","n":305,"s":"有一台三相交流电动机，每相绕组的额定电压为220V，对称三相电源的线电压为380V，则电动机的三相绕组应采用的联结方式是( )。","o":["星形联结，有中线","星形联结，无中线","三角形联结","A、B 均可"],"a":"B"},{"id":"s306","t":"s","n":306,"s":"射极输出器的输出电阻小，说明该电路的( )。","o":["带负载能力强","带负载能力差","减轻前级或信号源负荷","取信号能力强"],"a":"A"},{"id":"s307","t":"s","n":307,"s":"如图所示，该电路的反馈类型为( )。","o":["电压串联负反馈","电压并联负反馈","电流串联负反馈","电流并联负反馈"],"a":"D"},{"id":"s308","t":"s","n":308,"s":"测量电压时应将电压表( )电路。","o":["串联接入","并联接入","并联接入或串联接入","混联接入"],"a":"B"},{"id":"s309","t":"s","n":309,"s":"测量额定电压在500V 以下的设备或线路的绝缘电阻时，选用电压等级为( )。","o":["380V","400V","500V 或1000V","220V"],"a":"C"},{"id":"s310","t":"s","n":310,"s":"喷灯的加油、放油和维修应在喷灯( )进行。","o":["燃烧时","燃烧或熄灭后","熄火后","高温时"],"a":"C"},{"id":"s311","t":"s","n":311,"s":"选用量具时，不能用千分尺测量( )的表面。","o":["精度一般","精度较高","精度较低","粗糙"],"a":"D"},{"id":"s312","t":"s","n":312,"s":"绝缘材料的耐热等级和允许最高温度中，等级代号是1，耐热等级A，它的允许温度是( )。","o":["90°","105°","120°","130°"],"a":"B"},{"id":"s313","t":"s","n":313,"s":"软磁材料的主要分类有( )、金属软磁材料、其它软磁材料。","o":["不锈钢","铜合金","铁氧体软磁材料","铝合金"],"a":"C"},{"id":"s314","t":"s","n":314,"s":"火焰与带电体之间的最小距离，10KV 及以下为( )m。","o":["1.5","2","3","2.5"],"a":"A"},{"id":"s315","t":"s","n":315,"s":"本安防爆型电路及其外部配线用的电缆或绝缘导线的耐压强度应选用电路额定电压的2 倍，最低为( )。","o":["500V","400V","300V","800V"],"a":"A"},{"id":"s316","t":"s","n":316,"s":"文明生产的外部条件主要指( )、光线等有助于保证质量。","o":["设备","机器","环境","工具"],"a":"C"},{"id":"s317","t":"s","n":317,"s":"与环境污染相关且并称的概念是( )。","o":["生态破坏","电磁辐射污染","电磁噪音污染","公害"],"a":"D"},{"id":"s318","t":"s","n":318,"s":"劳动安全卫生管理制度对未成年工给予了特殊的劳动保护，规定严禁一切企业招收未满( )的童工。","o":["14 周岁","15 周岁","16 周岁","18 周岁"],"a":"C"},{"id":"s319","t":"s","n":319,"s":"任何单位和个人不得危害发电设施、( )和电力线路设施及其有关辅助设施。","o":["变电设施","用电设施","保护设施","建筑设施"],"a":"B"},{"id":"s320","t":"s","n":320,"s":"电气控制线路图测绘的一般步骤是设备停电，先画电器布置图，再画( )，最后画出电气原理图。","o":["电机位置图","电器接线图","按钮布置图","开关布置图"],"a":"B"},{"id":"s321","t":"s","n":321,"s":"电气控制线路图测绘的方法是先画主电路，再画控制电路；先画输入端，再画输出端； ( )；先简单后复杂。","o":["先画支路，再画干线","先画主干线，再画各支路","先画电气，再画机械","先画机械，再画电气"],"a":"B"},{"id":"s322","t":"s","n":322,"s":"电气控制线路测绘时要避免大拆大卸，对去掉的线头要( )。","o":["保管好","做好记号","用新线接上","安全接地"],"a":"B"},{"id":"s323","t":"s","n":323,"s":"测绘T68镗床电器位置图时，重点要画出两台电动机、电源总开关、按钮、( )以及电器箱的具体位置。","o":["接触器","行程开关","熔断器","热继电器"],"a":"B"},{"id":"s324","t":"s","n":324,"s":"分析T68 镗床电气控制主电路原理图时，首先要看懂主轴电动机M1 的正反转电路和( )，然后再看快速移动电动机的正反转电路。","o":["Y-△启动电路","能耗制动电路","高低速切换电路","降压启动电路"],"a":"C"},{"id":"s325","t":"s","n":325,"s":"测绘T68 镗床电气控制主电路图时要画出电源开关QS、熔断器FU1 和FU2、接触器KM1～KM7、热继电器FR、( )等。","o":["电动机M1 和M2","按钮SB1～SB5","行程开关SQ1～SQ8","中间继电器KA1 和KA2"],"a":"A"},{"id":"s326","t":"s","n":326,"s":"测绘T68 镗床电气线路的控制电路图时要正确画出控制变压器TC、按钮SB1～SB5、( )、中间继电器KA1 和KA2、速度继电器KS、时间继电器KT 等。","o":["电动机M1 和M2","行程开关SQ1～SQ8","熔断器FU1 和FU2","电源开关QS"],"a":"B"},{"id":"s327","t":"s","n":327,"s":"测绘X62W 铣床电器位置图时要画出电源开关、电动机、按钮、( )、电器箱等在机床中的具体位置。","o":["接触器","行程开关","熔断器","热继电器"],"a":"B"},{"id":"s328","t":"s","n":328,"s":"分析X62W 铣床主电路工作原理图时，首先要看懂主轴电动机M1 的正反转电路、( )，然后再看进给电动机M2 的正反转电路，最后看冷却泵电动机M3 的电路。","o":["Y-△启动电路","高低速切换电路","制动及冲动电路","降压启动电路"],"a":"C"},{"id":"s329","t":"s","n":329,"s":"测绘X62W 铣床电气控制主电路图时要画出电源开关QS、熔断器FU1、接触器KM1～KM6、( )、电动机M1～M3 等。","o":["按钮SB1～SB6","热继电器FR1～FR3","行程开关SQ1～SQ7","转换开关SA1～SA2"],"a":"B"},{"id":"s330","t":"s","n":330,"s":"20/5t 桥式起重机的主电路中包含了电源开关QS、交流接触器KM1～KM4、凸轮控制器SA1～SA3、( )、电磁制动器YB1～YB6、电阻器1R～5R、过电流继电器等。","o":["限位开关SQ1～SQ4","电动机M1～M5","欠电压继电器KV","熔断器FU2"],"a":"B"},{"id":"s331","t":"s","n":331,"s":"20/5t 桥式起重机电气线路的控制电路中包含了主令控制器SA4、紧急开关QS4、启动按钮SB、过电流继电器KC1～KC5、( )、欠电压继电器KV 等。","o":["电动机M1～M5","电磁制动器YB1～YB6","限位开关SQ1～SQ4","电阻器1R～5R"],"a":"C"},{"id":"s332","t":"s","n":332,"s":"20/5t 桥式起重机的小车电动机可以由凸轮控制器实现( )的控制。","o":["减压启动","正反转","能耗制动","回馈制动"],"a":"B"},{"id":"s333","t":"s","n":333,"s":"20/5t 桥式起重机的主钩电动机一般用( )实现调速的控制。","o":["断路器","频敏变阻器","凸轮控制器","热继电器"],"a":"C"},{"id":"s334","t":"s","n":334,"s":"20/5t 桥式起重机的保护电路由紧急开关QS4、( )、欠电压继电器KV、熔断器FU1～FU2、限位开关SQ1～SQ4 等组成。","o":["电阻器1R～5R","过电流继电器KC1～KC5","热继电器FR1～FR5","接触器KM1～KM2"],"a":"B"},{"id":"s335","t":"s","n":335,"s":"20/5t 桥式起重机的主接触器KM 吸合后，过电流继电器立即动作的可能原因是( )。","o":["电阻器1R～5R 的初始值过大","熔断器FU1～FU2 太粗","电动机M1～M4 绕组接地","热继电器FR1～FR5 额定值过小"],"a":"C"},{"id":"s336","t":"s","n":336,"s":"X62W 铣床的主电路由电源总开关QS、熔断器FU1、接触器KM1～KM6、热继电器FR1～FR3、( )、快速移动电磁铁YA 等组成。","o":["位置开关SQ1～SQ7","电动机M1～M3","按钮SB1～SB6","速度继电器KS"],"a":"B"},{"id":"s337","t":"s","n":337,"s":"X62W 铣床电气线路的控制电路由控制变压器TC、熔断器FU2～FU3、按钮SB1～SB6、( )、速度继电器KS、转换开关SA1～SA3、热继电器FR1~FR3 等组成。","o":["电动机M1～M3","位置开关SQ1～SQ7","快速移动电磁铁YA","电源总开关QS"],"a":"B"},{"id":"s338","t":"s","n":338,"s":"X62W 铣床的主轴电动机M1 采用了( )启动方法。","o":["全压","定子减压","Y-△","变频"],"a":"A"},{"id":"s339","t":"s","n":339,"s":"X62W 铣床的主轴电动机M1 采用了( )的停车方法。","o":["能耗制动","反接制动","电磁抱闸制动","机械摩擦制动"],"a":"B"},{"id":"s340","t":"s","n":340,"s":"X62W 铣床主轴电动机M1 的冲动控制是由位置开关SQ7 接通( )一下。","o":["反转接触器KM2","反转接触器KM4","正转接触器KM1","正转接触器KM3"],"a":"A"},{"id":"s341","t":"s","n":341,"s":"X62W 铣床进给电动机M2 的( )有左、中、右三个位置。","o":["前后（横向）和升降十字操作手柄","左右（纵向）操作手柄","高低速操作手柄","启动制动操作手柄"],"a":"B"},{"id":"s342","t":"s","n":342,"s":"X62W 铣床使用圆形工作台时必须把前后（横向）和升降十字操作手柄置于( )。","o":["上升位置","中间位置","下降位置","横向位置"],"a":"B"},{"id":"s343","t":"s","n":343,"s":"X62W 铣床的主电路、控制电路和照明电路由( )实现短路保护。","o":["欠电压继电器","过电流继电器","熔断器","热继电器"],"a":"C"},{"id":"s344","t":"s","n":344,"s":"X62W 铣床三相电源缺相会造成( )不能启动。","o":["主轴一台电动机","三台电动机都","主轴和进给电动机","快速移动电磁铁"],"a":"B"},{"id":"s345","t":"s","n":345,"s":"T68 镗床电气控制主电路由电源开关QS、熔断器FU1 和FU2、( )、热继电器FR、电动机M1 和M2 等组成。","o":["速度继电器KS","行程开关SQ1～SQ8","接触器KM1～KM7","时间继电器KT"],"a":"C"},{"id":"s346","t":"s","n":346,"s":"T68 镗床电气线路控制电路由控制变压器TC、按钮SB1～SB5、行程开关SQ1～SQ8、中间继电器KA1 和KA2、( )、时间继电器KT 等组成。","o":["电动机M1 和M2","速度继电器KS","制动电阻R","电源开关QS"],"a":"B"},{"id":"s347","t":"s","n":347,"s":"T68 镗床的主轴电动机采用了( )方法。","o":["频敏变阻器启动","Y-△启动","全压启动","△-YY 启动"],"a":"C"},{"id":"s348","t":"s","n":348,"s":"下列不属于常用中间电子单元电路的功能有( )。","o":["传输信号能力强","信号波形失真小","电压放大能力强","取信号能力强"],"a":"D"},{"id":"s349","t":"s","n":349,"s":"反相比例运放电路应加的反馈类型是( )负反馈。","o":["电压串联","电压并联","电流并联","电流串联"],"a":"B"},{"id":"s350","t":"s","n":350,"s":"集成运放电路线非性应用要求( )。","o":["开环或加正反馈","负反馈","输入信号要大","输出要加限幅电路"],"a":"A"},{"id":"s351","t":"s","n":351,"s":"组合逻辑电路的分析是( )。","o":["根据已有电路图进行分析","画出对应的电路图","根据逻辑结果进行分析","画出对应的输出时序图"],"a":"A"},{"id":"s352","t":"s","n":352,"s":"组合逻辑电路的编码器功能为( )。","o":["用一位二进制数来表示","用多位二进制数来表示输入信号","用十进制数表示输入信号","用十进制数表示二进制信号"],"a":"B"},{"id":"s353","t":"s","n":353,"s":"时序逻辑电路的驱动方程是( )。","o":["各个触发器的输入表达式","各个门电路的输入表达式","各个触发器的输出表达式","各个门电路的输出表达式"],"a":"A"},{"id":"s354","t":"s","n":354,"s":"时序逻辑电路的计数器按与时钟脉冲关系可分为( )。","o":["加法计数器","减法计数器","可逆制计数器","以上都是"],"a":"D"},{"id":"s355","t":"s","n":355,"s":"当74 LS94 的Sr 与Q3 相连时，电路实现的功能为( )。","o":["左移环形计数器","右移环形计数器","保持","并行置数"],"a":"B"},{"id":"s356","t":"s","n":356,"s":"集成显示译码器是按( )来显示的。","o":["高电平","低电平","字型","低阻"],"a":"C"},{"id":"s357","t":"s","n":357,"s":"集成运放电路的两输入端外接( )防止输入信号过大而损坏器件。","o":["三极管","反并联二极管","场效应管","稳压管"],"a":"B"},{"id":"s358","t":"s","n":358,"s":"集成与非门的多余引脚( )时，与非门被封锁。","o":["悬空","接高电平","接低电平","并接"],"a":"C"},{"id":"s359","t":"s","n":359,"s":"集成编码器无法工作，首先应检查( )的状态。","o":["输入端","输出端","清零端","控制端"],"a":"D"},{"id":"s360","t":"s","n":360,"s":"可控 RS 触发器，易在 CP=1 期间出现( )现象。","o":["翻转","置0","置1","空翻"],"a":"D"},{"id":"s361","t":"s","n":361,"s":"JK 触发器，当 JK 为( )时，触发器处于保持状态。","o":["00","01","10","11"],"a":"A"},{"id":"s362","t":"s","n":362,"s":"时序逻辑电路的数码寄存器结果与输入不同，是( )有问题。","o":["清零端","送数端","脉冲端","输出端"],"a":"A"},{"id":"s363","t":"s","n":363,"s":"锯齿波触发电路中调节恒流源对电容器的充电电流，可以调节( )。","o":["锯齿波的周期","锯齿波的斜率","锯齿波的幅值","锯齿波的相位"],"a":"B"},{"id":"s364","t":"s","n":364,"s":"三相半波可控整流电路的三相整流变压器二次侧接成( )。","o":["△接法","Y 接法","桥式接法","半控接法"],"a":"B"},{"id":"s365","t":"s","n":365,"s":"三相半波可控整流电路电阻负载，保证电流连续的最大控制角α是( )。","o":["20°","30°","60°","90°"],"a":"B"},{"id":"s366","t":"s","n":366,"s":"三相半波可控整流电路大电感负载有续流管的控制角α移相范围是( )。","o":["0～120°","0～150°","0～90°","0～60°"],"a":"B"},{"id":"s367","t":"s","n":367,"s":"三相半控桥式整流电路由( )晶闸管和三只功率二极管组成。","o":["四只","一只","二只","三只"],"a":"D"},{"id":"s368","t":"s","n":368,"s":"三相半控桥式整流电路电阻性负载时，控制角α的移相范围是( )。","o":["0～180°","0～150°","0～120°","0～90°"],"a":"A"},{"id":"s369","t":"s","n":369,"s":"三相半控桥式整流电路电感性负载每个晶闸管电流平均值是输出电流平均值的( )。","o":["1/6","1/4","1/2","1/3"],"a":"D"},{"id":"s370","t":"s","n":370,"s":"三相全控桥式整流电路是由一组共阴极的与另一组共阳极的三相半波可控整流电路相( )构成的。","o":["串联","并联","混联","复联"],"a":"A"},{"id":"s371","t":"s","n":371,"s":"三相全控桥式整流电路电阻负载，控制角α的移相范围是( )。","o":["0～30°","0～60°","0～90°","0～120°"],"a":"D"},{"id":"s372","t":"s","n":372,"s":"三相全控桥式整流电路电感性负载，控制角α增大，输出电压( )。","o":["减小","增大","不变","不定"],"a":"A"},{"id":"s373","t":"s","n":373,"s":"单相半波可控整流电路电阻性负载一个周期内输出电压波形的最大导通角是( )。","o":["90°","120°","180°","240°"],"a":"C"},{"id":"s374","t":"s","n":374,"s":"单相桥式可控整流电路大电感负载有续流管的输出电压波形中，在控制角α=( )时，有输出电压的部分等于没有输出电压的部分。","o":["90°","120°","150°","180°"],"a":"A"},{"id":"s375","t":"s","n":375,"s":"三相半波可控整流电路电阻性负载的输出电流波形在控制角α<( )时连续。","o":["60°","30°","45°","90°"],"a":"B"},{"id":"s376","t":"s","n":376,"s":"三相桥式可控整流电路电阻性负载的输出电压波形，在控制角α=( )时，有电压输出部分等于无电压输出部分。","o":["30°","60°","90°","120°"],"a":"C"},{"id":"s377","t":"s","n":377,"s":"三相桥式可控整流电路电阻性负载的输出电流波形，在控制角α<( )时连续。","o":["90°","80°","70°","60°"],"a":"D"},{"id":"s378","t":"s","n":378,"s":"晶闸管触发电路发出触发脉冲的时刻是由同步电压来定位的，由( )来调整初始相位，由控制电压来实现移相。","o":["脉冲电压","触发电压","偏置电压","异步电压"],"a":"C"},{"id":"s379","t":"s","n":379,"s":"KC04 集成触发电路由锯齿波形成、移相控制、脉冲形成及( )等环节组成。","o":["三角波输出","正弦波输出","偏置角输出","整形放大输出"],"a":"D"},{"id":"s380","t":"s","n":380,"s":"KC04 集成触发电路一个周期内可以从1 脚和15 脚分别输出相位差( )的两个窄脉冲。","o":["60°","90°","120°","180°"],"a":"D"},{"id":"s381","t":"s","n":381,"s":"以下FX2N 系列可编程序控制器程序，实现的功能是( )。","o":["X0 停止","X1 启动","等同于启保停控制","Y0 不能得电"],"a":"C"},{"id":"s382","t":"s","n":382,"s":"在以下FX2N PLC 程序中，当Y3 得电后，( )还可以得电。","o":["Y1","Y2","Y4","都可以"],"a":"C"},{"id":"s383","t":"s","n":383,"s":"以下程序是对输入信号X0 进行( )分频。","o":["二","四","六","八"],"a":"A"},{"id":"s384","t":"s","n":384,"s":"在FX2N PLC 中配合使用PLS 可以实现( )功能。","o":["计数","计时","分频","倍频"],"a":"C"},{"id":"s385","t":"s","n":385,"s":"在使用FX2N 可编程序控制器控制交通灯时，将相对方向的同色灯并联起来，是为了( )。","o":["简化电路","节约电线","节省PLC 输出口","减少工作量"],"a":"C"},{"id":"s386","t":"s","n":386,"s":"以下不是PLC 控制系统设计原则的是( )。","o":["保证控制系统的安全、可靠","最大限度地满足生产机械对电气控制的要求","在满足控制要求的同时，力求使系统简单、经济、操作和维护方便","选择价格贵的PLC 来提高系统可靠性"],"a":"D"},{"id":"s387","t":"s","n":387,"s":"PLC 控制系统的主要设计内容描述不正确的是( )。","o":["选择用户输入设备、输出设备、以及由输出设备驱动的控制对象","分配I/O 点，绘制电气连接图，考虑必要的安全保护措施","编制控制程序","下载控制程序"],"a":"D"},{"id":"s388","t":"s","n":388,"s":"PLC 控制系统设计的步骤是( )。① 确定硬件配置，画出硬件接线图② PLC 进行模拟调试和现场调试③ 系统交付前，要根据调试的最终结果整理出完整的技术文件④ 深入了解控制对象及控制要求","o":["①→③→②→④","①→②→④→③","②→①→④→③","④→①→②→③"],"a":"D"},{"id":"s389","t":"s","n":389,"s":"PLC 编程软件安装方法不对的是( )。","o":["安装前，请确定下载文件的大小及文件名称","在安装的时候，最好把其他应用程序关掉，包括杀毒软件","安装选项中，选项无需都打勾","解压后，直接点击安装"],"a":"D"},{"id":"s390","t":"s","n":390,"s":"FX2N 系列PLC 编程软件的功能不包括以下( ) 。","o":["程序检查","仿真模拟","短路保护","上载"],"a":"C"},{"id":"s391","t":"s","n":391,"s":"PLC 文本化编程语言包括：( ) 。","o":["IL 和ST","LD 和ST","ST 和FBD","SFC 和LD"],"a":"A"},{"id":"s392","t":"s","n":392,"s":"表示编程语言的( )。","o":["转换","编译","注释","改写"],"a":"A"},{"id":"s393","t":"s","n":393,"s":"PLC 程序的检查内容不包括( )。","o":["指令检查","梯形图检查","继电器检查","软元件检查"],"a":"C"},{"id":"s394","t":"s","n":394,"s":"在FX 系列PLC 控制中可以用( )替代计数器。","o":["M","S","C","T"],"a":"C"},{"id":"s395","t":"s","n":395,"s":"( )是PLC 编程软件可以进行监控的对象。","o":["电源电压值","输入、输出量","输入电流值","输出电流值"],"a":"B"},{"id":"s396","t":"s","n":396,"s":"下图可能实现的功能是( )。","o":["y5 输入软元件被强制执行","输入软元件强制执行","y5 软元件置位","输出软元件被强制执行"],"a":"D"},{"id":"s397","t":"s","n":397,"s":"下图是PLC 编程软件中的( )按钮。","o":["写入按钮","监控按钮","PLC 读取按钮","程序检测按钮"],"a":"D"},{"id":"s398","t":"s","n":398,"s":"PLC 通过( )寄存器保持数据。","o":["掉电保持","时间","硬盘","以上都不是"],"a":"A"},{"id":"s399","t":"s","n":399,"s":"以下程序出现的错误是( )。","o":["没有计数器","不能自锁","没有错误","双线圈错误"],"a":"D"},{"id":"s400","t":"s","n":400,"s":"在一个程序中不能使用( )检查纠正的方法。","o":["梯形图","双线圈","上电","指令表"],"a":"C"},{"id":"s401","t":"s","n":401,"s":"单相桥式可控整流电路，U2=36V，用示波器测量其触发脉冲时（VOLTS/DIV=5V），屏幕上未显示脉冲波形，原因可能是( )。","o":["输入电压过小","带了感性负载","示波器VOLTS/DIV 档位应选0.2V","触发脉冲的控制角为0°"],"a":"C"},{"id":"s402","t":"s","n":402,"s":"由于晶闸管的( )，给直流调速系统的可逆运行造成了困难。","o":["绝缘特性","双向导电性","单向导电性","惯性"],"a":"C"},{"id":"s403","t":"s","n":403,"s":"脉冲宽度调制型(又称PWM 型)变频器也是一种交-直-交变频器。常采用( )型逆变器。","o":["电压","电流","功率","阻抗"],"a":"A"},{"id":"s404","t":"s","n":404,"s":"下图是一个无静差直流调速系统的实例，采用( )调节器以实现无静差。","o":["比例微分","比例放大","比例积分","阶跃放大"],"a":"C"},{"id":"s405","t":"s","n":405,"s":"当检测出晶闸管某两个引脚之间有阻值时，可确定这两个引脚为( )。","o":["控制极和阴极","控制极和阳极","阳极和阴极","无法确定"],"a":"A"},{"id":"s406","t":"s","n":406,"s":"( )，又称持续调速，是指电动机的转速能够平滑地调节。","o":["平滑调速","有级调速","无级调速","多段速调速"],"a":"C"},{"id":"s407","t":"s","n":407,"s":"闭环调速系统的自动调节过程中，当电动机的转速n 由于某种原因（例如机械负载转矩TL 增加）下降时，( )环节将进行自动调节，","o":["电流正反馈","电流负反馈","转速负反馈","转速正反馈"],"a":"C"},{"id":"s408","t":"s","n":408,"s":"静差率用来衡量调速系统在负载变化时转速的稳定度。机械特性越硬，静差率( )，转速的稳定度越高。","o":["越大","越小","不变","无关"],"a":"B"},{"id":"s409","t":"s","n":409,"s":"锯齿波触发电路中的锯齿波是由( )对电容器充电以及快速放电产生的。","o":["矩形波电源","正弦波电源","恒压源","恒流源"],"a":"D"},{"id":"s410","t":"s","n":410,"s":"系统开环连接时不允许突加( )信号。","o":["同步","触发","反馈","给定"],"a":"D"},{"id":"s411","t":"s","n":411,"s":"转差离合器由两个旋转部分组成。其中由笼型转子异步电动机带动的、恒速旋转的、铁磁材料制成的圆筒，习惯上称为( )。","o":["电枢","离合器","滑差电动机","磁极"],"a":"A"},{"id":"s412","t":"s","n":412,"s":"绕线式异步电动机采用串级调速可以实现( )。","o":["分级调速","无级调速","机械特性变软","电路简单化"],"a":"B"},{"id":"s413","t":"s","n":413,"s":"单闭环调速系统的静特性比开环调速系统机械特性( )。","o":["软","硬","无法比较","粗"],"a":"B"},{"id":"s414","t":"s","n":414,"s":"电流正反馈的直流调速系统中，电流正反馈环节( )反馈环节。","o":["是补偿环节，而不是","不是补偿，而是","是补偿环节，也是","不是补偿，也不是"],"a":"A"},{"id":"s415","t":"s","n":415,"s":"电流正反馈调速系统中，电枢电流的增加间接反映( )的增加。","o":["负载转矩","励磁电流","控制电压","给定电压"],"a":"A"},{"id":"s416","t":"s","n":416,"s":"电流截止负反馈环节的输入输出特性是一条( )。","o":["正弦波","余弦波","与横轴平行的直线","横轴负半周是为零的直线，正半周为从零开始的斜线"],"a":"D"},{"id":"s417","t":"s","n":417,"s":"电刷下火花过大，电枢过热用毫伏表检查换向片间的电压是否平衡，如果二片间电压( )，则该处可能脱焊，查明重焊。","o":["特别小","特别大","为零","无法确定"],"a":"B"},{"id":"s418","t":"s","n":418,"s":"三相异步电动机正在运行时，转子突然被卡住，这时电动机的电流会( )。","o":["减少","增加","等于零","不确定"],"a":"B"},{"id":"s419","t":"s","n":419,"s":"起动故障：当电器接通电源后，电动机不工作，并且电动机无任何声响。分析其主要原因是与电动机相配套的( )。","o":["反馈元件","电源","启动元件","负载"],"a":"C"},{"id":"s420","t":"s","n":420,"s":"西门子MM420 变频器的主电路电源端子( )需经交流接触器和保护用断路器与三相电源连接。但不宜采用主电路的通、断来控制变频器的运行与停止。","o":["R、S、T","U、V、W","L1、L2、L3","A、B、C"],"a":"C"},{"id":"s421","t":"s","n":421,"s":"职业道德是一种( )的约束机制。","o":["随意","统一","强制","非强制"],"a":"D"},{"id":"s422","t":"s","n":422,"s":"下面关于爱岗敬业，工作认真负责的描述正确的是( )。","o":["爱岗敬业与工作认真负责决定于个人效益","爱岗敬业与工作认真负责决定于个人价值","认真学习，踏实工作，提高职业技能水平","把握时机，增强把握择业机遇意识"],"a":"C"},{"id":"s423","t":"s","n":423,"s":"以下关于企业安全生产管理员的描述错误的是：( )。","o":["企业应按规定配备安全生产管理员","在企业人员紧张时，安全生产管理员可以暂时空缺","安全生产管理员应参加专业培训，取得执业资格证书","安全生产管理员应具备与生产经营活动相适应的安全生产知识和管理能力。"],"a":"B"},{"id":"s424","t":"s","n":424,"s":"绝缘尼龙适合用在( )。","o":["显示屏","传动机构","线束","设备面板"],"a":"B"},{"id":"s425","t":"s","n":425,"s":"装置避雷针是( )的主要措施。","o":["直击雷防护","静电感应防护","电磁感应防护","雷电侵入波防护"],"a":"A"},{"id":"s426","t":"s","n":426,"s":"在生产现场管理中，文明生产是要按现代工业生产的客观要求，为生产现场保持良好的生产( )。","o":["环境和次序","规章和制度","人员和材料","设备和资源"],"a":"A"},{"id":"s427","t":"s","n":427,"s":"Y-Δ降压启动适用于正常运行时为( )的电动机","o":["Δ连接","Y 连接","Y 连接和Δ连接","双Y 连接"],"a":"A"},{"id":"s428","t":"s","n":428,"s":"电气原理图中表示参照代号的前缀符号的字符为( )。","o":["= 表示项目的功能面；-表示项目的产品面；+表示项目的位置面。","- 表示项目的功能面；=表示项目的产品面；+表示项目的位置面。","= 表示项目的功能面；+表示项目的产品面；=表示项目的位置面。","- 表示项目的功能面；+表示项目的产品面；=表示项目的位置面。"],"a":"A"},{"id":"s429","t":"s","n":429,"s":"对下列接线图示例说法正确的是( )。","o":["-A1 和-A2 配有端子引出端；-A3 配有不可取下的电缆；-W1 表示单芯屏蔽电缆。","-A1 和-A2 配有穿孔引出端；-A3 配有可取下的电缆；-W1 表示5 芯屏蔽电缆。","-A1 和-A2 配有插座引出端；-A3 配有不可取下的电缆；-W1 表示5 芯屏蔽电缆。","-A1 和-A2 配有端子引出端；-A3 配有可取下的电缆；-W1 表示5 芯屏蔽电缆。"],"a":"C"},{"id":"s430","t":"s","n":430,"s":"X62W 铣床中，当需要主轴冲动时，按下冲动开关SQ7，SQ7 的常闭触点SQ7-2先断开，而后常开触点SQ7-1 闭合，使接触器( )通电吸合，电动机M1 启动，冲动完成。","o":["KM1","KM2","KM3","KM4"],"a":"B"},{"id":"s431","t":"s","n":431,"s":"盾构单区间施工距离一般为1KM 左右，供电的高压为( )。","o":["6.3KV","10KV","20KV","35KV"],"a":"B"},{"id":"s432","t":"s","n":432,"s":"建筑施工现场临时用电工程专用TN 系统，错误的是( )。","o":["采用三级配电系统","采用TN-C 系统","采用二级漏电保护系统","采用TN-S 系统"],"a":"B"},{"id":"s433","t":"s","n":433,"s":"以下能改变交流电频率和电压的设备是( )。","o":["变压器","变频器","交流调压器","直流斩波器"],"a":"B"},{"id":"s434","t":"s","n":434,"s":"变频器负责变频输出的部分是( )。","o":["逆变器","整流器","保护电路","制动回路"],"a":"A"},{"id":"s435","t":"s","n":435,"s":"变频器主电路应配备低压断路器的额定电流Iqn 与变频器额定电流In 应满足( )。","o":["Iqn=In","Iqn<In","Iqn≥1.3~1.4In","Iqn≤0.95In"],"a":"C"},{"id":"s436","t":"s","n":436,"s":"变频器的( )方式是将异步电动机的定子电流分为产生磁场的电流分量和与其相垂直的产生转矩的电流分量并分别加以控制。","o":["恒压频比控制","恒功率控制","矢量控制","转差频率控制"],"a":"C"},{"id":"s437","t":"s","n":437,"s":"以下实现SPWM 逆变的控制方式属于软件生成的是( )。","o":["梯形波与三角波比较法","低次谐波消去法","规则采样法","等效面积法"],"a":"C"},{"id":"s438","t":"s","n":438,"s":"需要为一水泵（额定功率15kW）选配一台通用变频器，以下合理的选择是( )。","o":["三菱FR-E720-15K-CHT","三菱FR-A840-00380，额定功率15kW","西门子MM430，15.0kW（6SE6430-2UD31-5CA0）","西门子MM420，11kW（6SE6420-2UD31-1CA1）"],"a":"C"},{"id":"s439","t":"s","n":439,"s":"变频器的转矩提升是为了弥补低频时带载能力下降的情况，转矩提升是通过( )实现的。","o":["提高低频时的电流","提高低频时的电阻","提高低频时的U/f 比","提高低频时的U/I 比"],"a":"C"},{"id":"s440","t":"s","n":440,"s":"变频器为了防止出现磁路饱和，一般采用VVVF 控制方式，VVVF 指的是( )。","o":["输入电压、中间环节电压、输出电压、输出频率","频率可变","变压变频","电压可调"],"a":"C"},{"id":"s441","t":"s","n":441,"s":"关于变频器的布线以下说法错误的是( )。","o":["主电路和控制电路应分开走线","信号地不能与主电路共地","模拟信号和数字信号是共地的","变频器与电动机之间的线路不超过500m"],"a":"C"},{"id":"s442","t":"s","n":442,"s":"变频器更换使用场景，一定要进行( )。","o":["更换操作面板","断电重启3 次","参数恢复出厂设置","拆开清洗"],"a":"C"},{"id":"s443","t":"s","n":443,"s":"当变频器输出有短路，极有可能触发变频器的保护，并显示( )。","o":["“OL”","“OV”","“OC”","“P”"],"a":"C"},{"id":"s444","t":"s","n":444,"s":"涡流是一种( )现象。","o":["电磁感应","电流热效应","电流磁效应","电磁感应、电流热效应、电流磁效应"],"a":"D"},{"id":"s445","t":"s","n":445,"s":"高频感应加热多用于( )。","o":["局部的极小部位或极细的棒材","较大工件，大直径轴类，大直径厚壁管材，大模数齿轮等工件","小型工件","大工件"],"a":"C"},{"id":"s446","t":"s","n":446,"s":"高频淬火设备的一般工作频率为( )，中频淬火设备的工作频率为( )。","o":["100K～500K；1K～10K","100K～1000K；1K～10K","100K～500K；1K～100K","100K～1000K；1K～100K"],"a":"A"},{"id":"s447","t":"s","n":447,"s":"中、高频淬火设备的加热深度约为( )。","o":["3～4mm，1～2mm","3～10mm，1～2mm","4～10mm，1～3mm","4～9mm，1～3mm"],"a":"B"},{"id":"s448","t":"s","n":448,"s":"中频淬火设备常用于加工整体较( )，淬火层较( )的工件。","o":["小；深","大；深","小；浅","大；浅"],"a":"B"},{"id":"s449","t":"s","n":449,"s":"首先启动高频淬火设备的( )，才可以进行下一步操作。","o":["水泵","电源","加热功率电位器","空气开关"],"a":"A"},{"id":"s450","t":"s","n":450,"s":"调功器不触发或某一电路为零，其产生的原因不包括( )。","o":["输出接线不正确","触发输出线路有开路现象","电源熔断器熔管已熔断","触发电路或模块损坏"],"a":"C"},{"id":"m1","t":"m","n":1,"s":"电力电缆按结构特征分为( )。","o":["统包型","分相型","钢管型","扁平型","自容型"],"a":"ABCDE"},{"id":"m2","t":"m","n":2,"s":"变频器内置的检测器件能为变频器提供( )。","o":["风扇运转保护","整流和逆变模块过热保护","制动电阻过热保护","负载侧接地保护","负载侧短路保护"],"a":"ABCDE"},{"id":"m3","t":"m","n":3,"s":"三相调功的主要技术指标有( )。","o":["输入装置","输出装置","保护装置","使用环境","负载类型与接线方式"],"a":"ABCDE"},{"id":"m4","t":"m","n":4,"s":"对于冷水机组温度的要求，下面( )说法是正确的。","o":["冷水机组在名义工况下运行，其冷凝器进水温度为32℃。","冷水机组在名义工况下运行，其冷凝器出水温度为37℃。","冷水机组在名义工况下运行，冷凝器进水温度与冷凝器出水温度温差5℃。","压缩机吸气温度低时，其单位容积制冷量则大。","压缩机吸气温度高时，其单位容积制冷量则小。"],"a":"ABCDE"},{"id":"m5","t":"m","n":5,"s":"理想集成运算放大电路的主要特点有( )。","o":["开环差模电压放大倍数A ud = ","开环差模输入电阻r i = ","输出电阻r o = 0","共模抑制比K CMR = ","频带宽度f BW = "],"a":"ABCDE"},{"id":"m6","t":"m","n":6,"s":"进行计数器时序逻辑电路的分析时，需要列出逻辑电路的一些方程式，这些方程包括( )。","o":["时钟方程","输出方程","驱动方程","状态方程","特性方程"],"a":"ABCD"},{"id":"m7","t":"m","n":7,"s":"软启动器启动完成后，旁路接触器刚动作就跳闸。故障原因不可能是( )。","o":["启动电流过大","旁路接触器接线相序不对","启动转矩过大","电动机过载","电动机轻载"],"a":"ACD"},{"id":"m8","t":"m","n":8,"s":"无极调速优点是( )。","o":["没有换档动作","油耗低","没有换档的顿挫","传动效率高","加速快"],"a":"ABCDE"},{"id":"m9","t":"m","n":9,"s":"对于绕线式异步电动机串级调速系统，说法正确的是( )。","o":["绕线式异步电动机串级调速系统是无级调速","绕线式异步电动机串级调速系统是在定子电路中引入附加电动势","绕线式异步电动机串级调速系统属于转差功率增大型的调速方法","绕线式异步电动机串级调速系统采用的电路是无源逆变","绕线式异步电动机串级调速系统中有一大部分串级能量反馈至电源"],"a":"ACE"},{"id":"m10","t":"m","n":10,"s":"单闭环直流调速系统晶闸管两端电压波形的绘制要点：( )。","o":["每个晶闸管导通 120°","晶闸管导通时, 则该晶闸管两端电压为零","晶闸管不导通时, 则该晶闸管两端电压由同组的另外两个晶闸管的导通情况来决定","首先确定晶闸管两端电压为零的 120°区间","共阴极组的晶闸管两端电压波形, 需根据线电压下标的第一个字母来绘制"],"a":"ABCDE"},{"id":"m11","t":"m","n":11,"s":"在企业生产经营活动中，促进团队合作的具体措施是( )。","o":["互惠互利，平均分配","各取所长，发挥优势","只要合作，不要竞争","人心叵测，谨慎行事","互相帮助，共同成长"],"a":"BE"},{"id":"m12","t":"m","n":12,"s":"以下关于电压互感器说法正确的有( )。","o":["一次侧电压由所接电网的电压决定，不受二次负荷的影响","二次负荷电抗大，通过的电流很小，正常运行时，二次侧相当于开路状态","运行中二次侧不允许短路","电压互感器的误差有变比误差和相角误差两种","可以测量线电压，但不能测量相电压"],"a":"ABCD"},{"id":"m13","t":"m","n":13,"s":"以下不符合用电线路敷设要求的方法是( )。","o":["架空敷设应沿电杆、树木或墙壁敷设","电缆埋地敷设深度不小于0.7 米","架空敷设应采用绝缘子固定，绑扎线用绝缘线","架空敷设的电杆可以采用竹竿","接零保护系统的电缆线路必须采用五芯电缆"],"a":"AD"},{"id":"m14","t":"m","n":14,"s":"对于变频调速系统以下说法正确的是( )。","o":["可以用仪表的模拟输出端直接控制变频器的运行","变频器的上位控制器必须是PLC","电动机的编码器应连接到上位控制器而不是变频器上","同一个上位控制器可以同时控制多台变频器","海拔较高的地区应适当选用更大容量的变频器"],"a":"ADE"},{"id":"m15","t":"m","n":15,"s":"关于变压器耦合电路描述正确的是( )。","o":["可实现阻抗变换","变压器耦合电路前后级靠磁路耦合","变压器耦合电路低频特性差","根据所需的电压放大倍数，可选择合适的匝数比，使负载电阻上获得足够大的电压","变压器耦合电路不能放大变化缓慢的信号"],"a":"ABCD"},{"id":"m16","t":"m","n":16,"s":"完整的调功器由( )组成。","o":["结构箱体","面板控制器","可控硅组件","低压电器","自动化仪表"],"a":"ABCDE"},{"id":"m17","t":"m","n":17,"s":"西门子PLC 使用梯形图LAD 编程，以下注意事项正确的是( )。","o":["一个网络对应一个逻辑块","指令块的EN 端可以连接到左侧指令块的ENO 端","EN 端未被激活的指令将被忽略，不执行","指令表STL 和梯形图LAD 不一定能互转","OB 组织块只能使用梯形图编程"],"a":"ABCD"},{"id":"m18","t":"m","n":18,"s":"消防控制室的控制设备应有( )控制及显示功能。","o":["消防水泵、防烟和排烟风机的启、停，除自动控制外，还应能手动直接控制","显示火灾报警、故障报警部位","消防控制室的消防通信设备，应符合规范要求","火灾警报装置与应急广播的控制装置，其控制程序应符合规范要求","应能切断有关部位的非消防电源，并接通警报装置及火灾应急照明灯和疏散标志灯"],"a":"ABCDE"},{"id":"m19","t":"m","n":19,"s":"三相交流换向器调速电动机与一般三相鼠笼型异步电动机相比，具有（ ）。","o":["较小的启动电流","较大的启动电流","较小的启动转矩","较大的启动转矩","调速范围宽"],"a":"ADE"},{"id":"m20","t":"m","n":20,"s":"电动机起动不起来或转速不正常，可能的原因是( )。","o":["负载力矩过大","电枢的电源电压低于额定值","励磁绕组断路、短路、接线错误","换向极绕组接反","起动器接触不良，电阻不适当"],"a":"ABCDE"},{"id":"m21","t":"m","n":21,"s":"市场经济条件下，职业道德最终将对企业起到( )的作用。","o":["增强员工的创造性","提高竞争力.","提升经济效益","决定前途与命运","促进员工的行为规范"],"a":"BE"},{"id":"m22","t":"m","n":22,"s":"A 系列龙门刨床的控制绕组有( )。","o":["KⅠ","KⅡ","KⅢ","KⅣ","KⅤ"],"a":"ABC"},{"id":"m23","t":"m","n":23,"s":"在建筑供配电系统中临时用电负荷计算的重要性有( )。","o":["选择电气设备的依据","选择导线的依据","保障用电安全","在配电设计后进行复核","供电系统可靠运行提供参数支持"],"a":"ABCE"},{"id":"m24","t":"m","n":24,"s":"移相控制方式的输出状态为( )。","o":["电流表抖动","输出稳定性好","分配式周波控制","无谐波干扰","电流表不存在抖动"],"a":"BE"},{"id":"m25","t":"m","n":25,"s":"8051 单片机定时器/计数器有( )工作方式选择。","o":["方式0","方式1","方式2","方式3","方式4"],"a":"ABCD"},{"id":"m26","t":"m","n":26,"s":"集成运算放大电路的检测与故障分析的方法有( )。","o":["在路检测","电阻检测","开路检测","电压检测","电流检测"],"a":"AC"},{"id":"m27","t":"m","n":27,"s":"调试维修74138 译码器电路时，如用逻辑笔，其指示灯可以给出的指示有( )。","o":["暗","明亮","不亮","闪烁","渐亮"],"a":"ABCD"},{"id":"m28","t":"m","n":28,"s":"三菱E500 变频器中,控制变频电机正反转的接线端子为( )。","o":["STF","MRS","RES","STR","RM 和RH"],"a":"AD"},{"id":"m29","t":"m","n":29,"s":"交流变频调速的优点有( )。","o":["调速时平滑性好","调速范围大，精度高","易于实现过程自动化","启动电流低，对系统及电网无冲击，节电效果明显","变频器体积小，便于安装、调试、维修简单"],"a":"ABCDE"},{"id":"m30","t":"m","n":30,"s":"引入电流正反馈要注意( )。","o":["电流正反馈和电压负反馈是性质完全不同的两种控制作用","其开环特性","其闭环特性","输出额定值","反馈控制只能使静差尽量减小"],"a":"AE"},{"id":"m31","t":"m","n":31,"s":"关于交—直—交电压型变频器在异步电动机变频调速系统中的应用，下列说法正确的有（ ）。","o":["变频调速能实现无级调速，调速范围宽、平滑性好","基频以下保持 U/f 近似恒定，可实现近似恒转矩调速","变频调速属于转差功率消耗型调速方式，转速越低效率越低","变频器输出侧加装输出电抗器，可抑制高次谐波及 du/dt 对电机绝缘的损害","通用变频器再生制动时，加装制动单元和制动电阻可将再生电能以热能形式消耗"],"a":"ABDE"},{"id":"m32","t":"m","n":32,"s":"当( )情况发生时，UPS 将切换到蓄电池工作状态。","o":["电网供电电压过高","电网供电电压过低","电网供电中断","电网谐波过大","电网供电正常"],"a":"ABCD"},{"id":"m33","t":"m","n":33,"s":"常用调功器具有( )的优点。","o":["效率高","响应速度快","体积小","重量轻","无机械噪声和磨损"],"a":"ABCDE"},{"id":"m34","t":"m","n":34,"s":"要对STC89C52 单片机烧录程序，工作电脑必须要安装有( )这些软件。","o":["STC-ISP","STC-IUP","Windows10","Proteus","Keil C51"],"a":"ACE"},{"id":"m35","t":"m","n":35,"s":"逻辑变量的取值有( )。","o":["0","1","10","任意进制数","任意十进制数"],"a":"AB"},{"id":"m36","t":"m","n":36,"s":"关于编码器组合逻辑电路，下列说法正确的有( )。","o":["具有记忆功能","没有记忆功能","输出取决于输入信号的现态","输出取决于输出信号的现态","输出取决于输入信号的现态和输出信号的现态"],"a":"BC"},{"id":"m37","t":"m","n":37,"s":"调试维修编码器组合逻辑电路时，若需要替换芯片时，下列说法中正确的有( )。","o":["替换法简单易行","替换法可能损坏替换的电路插接板或元器件","如替换后故障消除，则说明原来的电路插接板或元器件有问题","替换法可以随便使用","替换法无法排除故障"],"a":"ABC"},{"id":"m38","t":"m","n":38,"s":"相控整流电路主电路波形测量可用( )方法。","o":["数字示波器","信号发生器","电路仿真软件","直流稳压源","电压表"],"a":"AC"},{"id":"m39","t":"m","n":39,"s":"多速异步电动机的转子绕组大多为笼式。由于其( )，因而在只需两种或三种不同转速的场合得到广泛应用。","o":["结构简单","体积小","工作可靠","安装简单","易于经济地实现变速"],"a":"ACE"},{"id":"m40","t":"m","n":40,"s":"转速负反馈直流调速系统中包括( )环节。","o":["电压比较环节","放大器","电力电子变换器","测速反馈环节","逆变器"],"a":"ABCD"},{"id":"m41","t":"m","n":41,"s":"T68 镗床主轴电动机具有( )功能。","o":["正反转","点动","反接制动","变极调速","快速移动"],"a":"ABCD"},{"id":"m42","t":"m","n":42,"s":"接地装置验收时所提交材料应包括( )。","o":["实际施工的竣工图","变更设计的证明文件","安装技术记录","测试记录","隐蔽工程记录"],"a":"ABCDE"},{"id":"m43","t":"m","n":43,"s":"西门子MICROMASTER 变频器可选的操作面板有( )。","o":["AOP","BOP","AAOP","PU","TD200"],"a":"ABC"},{"id":"m44","t":"m","n":44,"s":"中频淬火设备需要定期( )。","o":["保养","维护","检修","清灰","检查绝缘"],"a":"ABCDE"},{"id":"m45","t":"m","n":45,"s":"西门子S7-200PLC 自带的PORT 是一种多功能端口，可连接的外部设备有( )。","o":["编程PC","TD 文本显示器","PPI 设备","MPI 设备","ProfiBus 设备"],"a":"ABC"},{"id":"m46","t":"m","n":46,"s":"集成运算放大电路构成的方波发生器由( )组成。","o":["迟滞比较器","RC 充放电回路","过零比较器","三角波发生器","积分电路"],"a":"AB"},{"id":"m47","t":"m","n":47,"s":"晶闸管对触发脉冲的要求是( )。","o":["有足够的驱动功率","触发脉冲前沿要陡","触发脉冲幅值要高","触发脉冲宽度要足够宽","触发脉冲要与晶闸管阳极电压同步"],"a":"ABCE"},{"id":"m48","t":"m","n":48,"s":"三相半波可控整流电路，带阻感性负载，控制角α为( )度时，输出直流电压平均值大于零。","o":["0","30","60","90","120"],"a":"ABC"},{"id":"m49","t":"m","n":49,"s":"通常采用测速发电机作为转速检测装置。以下关于测速发电机的叙述正确的是( )。","o":["测速发电机有交流和直流两种","为了保证测速发电机输出电压与转速之间严格的比例关系，必须严格保证测速发电机磁场恒定","交流测速发电机不能用在直流调速系统中","测速发电机的额定转速与电动机的额定转速相适应","测速发电机负载电流的大小与测量精度无关"],"a":"ABD"},{"id":"m50","t":"m","n":50,"s":"电流截止负反馈的单闭环调速系统适用于( )。","o":["动态特性要求不高","小容量系统","动态特性要求较高","大容量系统","负载变化大"],"a":"AB"}];
+// ================= 数据层 =================
+const $ = s => document.querySelector(s);
+const MAP = new Map(QS.map(q => [q.id, q]));
+const TYPE_NAME = { j: '判断题', s: '单选题', m: '多选题' };
+const TYPE_SHORT = { j: '判断', s: '单选', m: '多选' };
+const LS = 'dg_tiku_v1';
+
+function blankDB() {
+  return {
+    wrong: {}, fav: {},
+    stat: { j: { a: 0, c: 0 }, s: { a: 0, c: 0 }, m: { a: 0, c: 0 } },
+    hist: [], last: null, exams: 0, pos: { j: 0, s: 0, m: 0 }
+  };
+}
+let DB = blankDB();
+try {
+  const raw = localStorage.getItem(LS);
+  if (raw) {
+    const p = JSON.parse(raw);
+    if (p && p.stat && p.stat.j) DB = Object.assign(blankDB(), p);
+  }
+} catch (e) { /* 本地存储不可用时退化为内存模式 */ }
+
+let storageOK = true;
+try { localStorage.setItem('__probe', '1'); localStorage.removeItem('__probe'); } catch (e) { storageOK = false; }
+
+if (!DB.pos || typeof DB.pos.j !== 'number') {
+  const pos = { j: 0, s: 0, m: 0 };
+  const lb = (DB.last && DB.last.label) || '';
+  const t = lb.indexOf('判断') === 0 ? 'j' : lb.indexOf('单选') === 0 ? 's' : lb.indexOf('多选') === 0 ? 'm' : null;
+  if (t && DB.last && DB.last.list) pos[t] = Math.min(DB.last.idx || 0, Math.max(0, DB.last.list.length - 1));
+  DB.pos = pos;
+}
+
+function save() {
+  try { localStorage.setItem(LS, JSON.stringify(DB)); } catch (e) {}
+}
+const answeredAll = () => DB.stat.j.a + DB.stat.s.a + DB.stat.m.a;
+const answeredInType = t => (DB.stat[t] && DB.stat[t].a) ? 1 : 0;
+const correctAll = () => DB.stat.j.c + DB.stat.s.c + DB.stat.m.c;
+const accAll = () => answeredAll() ? Math.round(correctAll() / answeredAll() * 100) : 0;
+const wrongIds = () => Object.keys(DB.wrong);
+const favIds = () => Object.keys(DB.fav);
+function timeAgo(ts) {
+  if (!ts) return '';
+  const d = Date.now() - ts;
+  if (d < 60e3) return '刚刚';
+  if (d < 3600e3) return Math.floor(d / 60e3) + ' 分钟前';
+  if (d < 86400e3) return Math.floor(d / 3600e3) + ' 小时前';
+  return Math.floor(d / 86400e3) + ' 天前';
+}
+let toastTimer = null;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('on'), 1600);
+}
+const pad2 = n => String(n).padStart(2, '0');
+function mmss(sec) { sec = Math.max(0, sec); return pad2(Math.floor(sec / 60)) + ':' + pad2(sec % 60); }
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+// ================= 视图切换 =================
+let VIEW = 'home';
+let S = null;
+let WRONG_T = null;
+let FAV_T = null;
+
+function setChrome(opts) {
+  $('#appTitle').textContent = opts.title;
+  $('#appSub').textContent = opts.sub || '';
+  $('#btnBack').hidden = !opts.back;
+  $('#btnSheet').hidden = !opts.sheet;
+  $('#btnReset').hidden = !opts.reset;
+  $('#tabbar').style.display = opts.tab === false ? 'none' : 'grid';
+  document.querySelectorAll('#tabbar button').forEach(b => b.classList.toggle('on', b.dataset.tab === VIEW));
+}
+
+function goHome() {
+  S = null; VIEW = 'home';
+  setChrome({ title: '电工考证刷题', sub: '电工竞赛项目理论知识题库' });
+  renderHome();
+}
+function goTab(tab) {
+  S = null; VIEW = tab;
+  if (tab === 'wrong') {
+    WRONG_T = null;
+    renderWrong();
+  } else if (tab === 'fav') {
+    FAV_T = null;
+    renderFav();
+  } else if (tab === 'stats') {
+    setChrome({ title: '学习统计', sub: '记录保存在本机', back: false, reset: true });
+    renderStats();
+  } else {
+    goHome();
+  }
+}
+
+// ================= 首页 =================
+function renderHome() {
+  const last = DB.last;
+  const lastQ = last ? MAP.get(last.list[last.idx]) : null;
+  const pct = last ? Math.round((last.idx + 1) / last.list.length * 100) : 0;
+  $('#view').innerHTML = `
+  <section class="hero">
+    <div class="kicker">电工竞赛 · 理论知识</div>
+    <div class="big">${QS.length}<em> 道</em></div>
+    <div class="desc">判断 ${QS.filter(q=>q.t==='j').length} · 单选 ${QS.filter(q=>q.t==='s').length} · 多选 ${QS.filter(q=>q.t==='m').length}，答案已对齐原题库</div>
+    <div class="hero-metrics">
+      <div><div class="num">${answeredAll()}</div><div class="lab">累计作答</div></div>
+      <div><div class="num">${accAll()}%</div><div class="lab">正确率</div></div>
+      <div><div class="num">${wrongIds().length}</div><div class="lab">错题</div></div>
+    </div>
+  </section>
+
+  ${last && lastQ ? `
+  <button class="continue" id="btnContinue">
+    <div class="ring">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 4v16l13-8z"/></svg>
+    </div>
+    <div class="txt">
+      <div class="t">继续练习 · ${esc(last.label)}</div>
+      <div class="d">上次做到第 ${last.idx + 1} / ${last.list.length} 题</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+    </div>
+  </button>` : ''}
+
+  <div class="section-title"><h2>顺序练习</h2><span class="note">按题库原顺序，边做边看答案</span></div>
+  <div class="types">
+    ${['j', 's', 'm'].map(t => `
+      <button class="tchip" data-type="${t}">
+        <span class="n">${TYPE_NAME[t]}${(DB.pos[t] || 0) > 0 ? ' · 第 ' + (DB.pos[t] + 1) + ' 题' : (answeredInType(t) ? ' · 从头再刷' : '')}</span>
+        <span class="c">${QS.filter(q => q.t === t).length}<small>道</small></span>
+      </button>`).join('')}
+  </div>
+
+  <div class="section-title"><h2>其他模式</h2><span class="note">随机刷、模拟考</span></div>
+  <div class="modes">
+    <button class="mode" id="btnRandom">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></div>
+      <div class="name">随机练习</div>
+      <div class="desc">全题库随机抽 50 题，错题也记录</div>
+      <span class="go">开始</span>
+    </button>
+    <button class="mode" id="btnExam">
+      <div class="ico" style="background:var(--yellow-soft);color:#8A6100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
+      <div class="name">模拟考试</div>
+      <div class="desc">100 题 / 60 分钟，90 分及格</div>
+      <span class="go">开考</span>
+    </button>
+  </div>
+
+  ${DB.hist.length ? `
+  <div class="section-title"><h2>最近成绩</h2><span class="note">共 ${DB.hist.length} 次</span></div>
+  <div class="rows">${DB.hist.slice(0, 3).map(h => `
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:22px;font-weight:700;color:${h.score >= 90 ? 'var(--green)' : 'var(--red)'};font-variant-numeric:tabular-nums;min-width:52px">${h.score}<small style="font-size:11px;color:var(--ink-3)">分</small></div>
+      <div style="flex:1;font-size:13px;color:var(--ink-2)">${esc(h.date)} · 答对 ${h.correct}/${h.total} · 用时 ${mmss(h.dur)}</div>
+      <div style="font-size:12.5px;color:${h.score >= 90 ? 'var(--green)' : 'var(--red)'}">${h.score >= 90 ? '及格' : '未及格'}</div>
+    </div>`).join('')}</div>`
+    : `<div style="margin:16px 2px 0;font-size:13px;color:var(--ink-3);line-height:1.7">还没有考试记录。建议先按顺序把判断题过一遍，再去模拟考检验水平。</div>`}
+  `;
+
+  const cont = $('#btnContinue');
+  if (cont) cont.onclick = () => resumeLast();
+  document.querySelectorAll('.tchip').forEach(b => b.onclick = () => startPractice(b.dataset.type));
+  $('#btnRandom').onclick = () => startRandom();
+  $('#btnExam').onclick = () => startExam();
+}
+
+// ================= 错题本 / 收藏 =================
+function listRows(ids, kind) {
+  return ids.map(id => {
+    const q = MAP.get(id);
+    if (!q) return '';
+    const extra = kind === 'wrong'
+      ? `<span class="no">错 ${DB.wrong[id] || 1} 次</span>`
+      : (kind === 'favsub' ? '' : `<span class="no">${TYPE_SHORT[q.t]}</span>`);
+    return `<button class="row" data-id="${id}">
+      <div class="txt">
+        <div class="meta"><span class="tag">${TYPE_NAME[q.t]}</span><span class="no">第 ${q.n} 题</span>${extra}</div>
+        <div class="stemtxt">${esc(q.s)}</div>
+      </div>
+      <div class="side"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></div>
+    </button>`;
+  }).join('');
+}
+
+const wrongIdsOf = t => wrongIds().filter(id => MAP.get(id) && MAP.get(id).t === t);
+const favIdsOf = t => favIds().filter(id => MAP.get(id) && MAP.get(id).t === t);
+const ARROW = `<div class="side"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></div>`;
+
+function renderWrong() {
+  if (WRONG_T) { renderWrongList(WRONG_T); return; }
+
+  const total = wrongIds().length;
+  const counts = { j: wrongIdsOf('j').length, s: wrongIdsOf('s').length, m: wrongIdsOf('m').length };
+  setChrome({ title: '错题本', sub: total ? '答错了 ' + total + ' 题' : '暂无错题', back: false });
+
+  $('#view').innerHTML = `
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">共 ${total} 道错题</div>
+        <div style="font-size:13px;color:var(--ink-3);margin-top:4px">答错自动收进来，之后做对会自动移除</div>
+      </div>
+      ${total ? `<button class="btn small primary" id="btnRedoAll">全部重做</button>` : ''}
+    </div>
+
+    <div class="section-title"><h2>按题型查看</h2><span class="note">点进去看该类型的错题</span></div>
+    <div class="rows">
+      ${['j', 's', 'm'].map(t => {
+        const n = counts[t];
+        return `<button class="row" data-type="${t}">
+          <div class="txt">
+            <div class="meta"><span class="tag">${TYPE_NAME[t]}</span><span class="no">${n} 道</span></div>
+            <div class="stemtxt">${n ? '做错的' + TYPE_NAME[t].slice(0, -1) + '题都在这里，可整组重做' : '还没有这类错题'}</div>
+          </div>
+          ${ARROW}
+        </button>`;
+      }).join('')}
+    </div>
+    ${total ? '' : `<div class="empty"><div class="big">错题本是空的</div><div class="sub">去做几道题，答错的会留在这里</div></div>`}
+  `;
+
+  document.querySelectorAll('.row[data-type]').forEach(b => b.onclick = () => {
+    const t = b.dataset.type;
+    if (!counts[t]) { toast('这个题型还没有错题'); return; }
+    WRONG_T = t;
+    renderWrong();
+  });
+  const all = $('#btnRedoAll');
+  if (all) all.onclick = () => startSession(wrongIds(), 'practice', '错题重做', 'wrong');
+}
+
+function renderWrongList(t) {
+  const ids = wrongIdsOf(t);
+  setChrome({ title: '错题本 · ' + TYPE_NAME[t], sub: ids.length ? ids.length + ' 道' : '这类没有错题', back: true });
+
+  $('#view').innerHTML = `
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">${TYPE_NAME[t]} ${ids.length} 道</div>
+        <div style="font-size:13px;color:var(--ink-3);margin-top:4px">重做答对一次，就会自动移出错题本</div>
+      </div>
+      ${ids.length ? `<button class="btn small primary" id="btnRedoType">重做 ${ids.length} 道</button>` : ''}
+    </div>
+    ${ids.length ? `<div class="rows" style="margin-top:14px">${listRows(ids, 'wrong')}</div>`
+      : `<div class="empty"><div class="big">这类还没有错题</div><div class="sub">回到上一级，看看别的题型</div></div>`}
+  `;
+
+  const redo = $('#btnRedoType');
+  if (redo) redo.onclick = () => startSession(ids, 'practice', TYPE_NAME[t] + ' · 错题重做', 'wrong');
+  document.querySelectorAll('.row').forEach(r => r.onclick = () => startSession([r.dataset.id], 'review', '错题查看', 'wrong'));
+}
+
+function renderFav() {
+  if (FAV_T) { renderFavList(FAV_T); return; }
+
+  const total = favIds().length;
+  const counts = { j: favIdsOf('j').length, s: favIdsOf('s').length, m: favIdsOf('m').length };
+  setChrome({ title: '收藏夹', sub: total ? '收藏了 ' + total + ' 题' : '暂无收藏', back: false });
+
+  $('#view').innerHTML = `
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">共 ${total} 道收藏</div>
+        <div style="font-size:13px;color:var(--ink-3);margin-top:4px">做题时点题目右侧星标即可收藏</div>
+      </div>
+      ${total ? `<button class="btn small primary" id="btnRedoAllFav">全部刷一遍</button>` : ''}
+    </div>
+
+    <div class="section-title"><h2>按题型查看</h2><span class="note">点进去看该类型的收藏</span></div>
+    <div class="rows">
+      ${['j', 's', 'm'].map(t => {
+        const n = counts[t];
+        return `<button class="row" data-type="${t}">
+          <div class="txt">
+            <div class="meta"><span class="tag">${TYPE_NAME[t]}</span><span class="no">${n} 道</span></div>
+            <div class="stemtxt">${n ? '收藏的' + TYPE_NAME[t].slice(0, -1) + '题都在这里，可整组重刷' : '还没有收藏这类题目'}</div>
+          </div>
+          ${ARROW}
+        </button>`;
+      }).join('')}
+    </div>
+    ${total ? '' : `<div class="empty"><div class="big">还没有收藏</div><div class="sub">遇到好题就点亮星标，随时回看</div></div>`}
+  `;
+
+  document.querySelectorAll('.row[data-type]').forEach(b => b.onclick = () => {
+    const t = b.dataset.type;
+    if (!counts[t]) { toast('这个题型还没有收藏'); return; }
+    FAV_T = t;
+    renderFav();
+  });
+  const all = $('#btnRedoAllFav');
+  if (all) all.onclick = () => startSession(favIds(), 'practice', '收藏重刷', 'fav');
+}
+
+function renderFavList(t) {
+  const ids = favIdsOf(t);
+  setChrome({ title: '收藏夹 · ' + TYPE_NAME[t], sub: ids.length ? ids.length + ' 道' : '这类没有收藏', back: true });
+
+  $('#view').innerHTML = `
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">${TYPE_NAME[t]} ${ids.length} 道</div>
+        <div style="font-size:13px;color:var(--ink-3);margin-top:4px">点题目可回看，整组刷一遍会重新判分</div>
+      </div>
+      ${ids.length ? `<button class="btn small primary" id="btnRedoFavType">刷这 ${ids.length} 道</button>` : ''}
+    </div>
+    ${ids.length ? `<div class="rows" style="margin-top:14px">${listRows(ids, 'favsub')}</div>`
+      : `<div class="empty"><div class="big">这类还没有收藏</div><div class="sub">回到上一级，看看别的题型</div></div>`}
+  `;
+
+  const redo = $('#btnRedoFavType');
+  if (redo) redo.onclick = () => startSession(ids, 'practice', TYPE_NAME[t] + ' · 收藏重刷', 'fav');
+  document.querySelectorAll('.row').forEach(r => r.onclick = () => startSession([r.dataset.id], 'review', '收藏查看', 'fav'));
+}
+
+// ================= 统计 =================
+function renderStats() {
+  const rows = ['j', 's', 'm'].map(t => {
+    const st = DB.stat[t];
+    const pct = st.a ? Math.round(st.c / st.a * 100) : 0;
+    return { t, a: st.a, c: st.c, pct };
+  });
+  const total = QS.length;
+  const done = new Set();
+  $('#view').innerHTML = `
+    <div class="stat-grid">
+      <div class="stat"><div class="k">累计作答</div><div class="v">${answeredAll()}<small>题</small></div></div>
+      <div class="stat"><div class="k">总正确率</div><div class="v">${accAll()}<small>%</small></div></div>
+      <div class="stat"><div class="k">错题待攻克</div><div class="v">${wrongIds().length}<small>题</small></div></div>
+      <div class="stat"><div class="k">模拟考试</div><div class="v">${DB.hist.length}<small>次</small></div></div>
+    </div>
+
+    <div class="section-title"><h2>分题型正确率</h2><span class="note">按已作答统计</span></div>
+    <div class="card">
+      <div class="bars">
+        ${rows.map(r => `
+          <div class="bar-row">
+            <div class="lab"><span>${TYPE_NAME[r.t]}</span><b>${r.a ? r.pct + '%' : '—'}${r.a ? ` · ${r.c}/${r.a}` : ''}</b></div>
+            <div class="track"><i class="${r.pct >= 90 ? 'g' : (r.pct >= 60 ? '' : 'y')}" style="width:${r.pct}%"></i></div>
+          </div>`).join('')}
+      </div>
+      <div style="font-size:12px;color:var(--ink-3);margin-top:14px;border-top:1px solid var(--line-2);padding-top:10px">
+        题库共 ${total} 题；正确率低于 60% 的题型建议先按顺序过一遍再刷错题。
+      </div>
+    </div>
+
+    <div class="section-title"><h2>考试记录</h2><span class="note">${DB.hist.length ? '最近 ' + Math.min(DB.hist.length, 10) + ' 次' : ''}</span></div>
+    ${DB.hist.length ? `<div class="rows">${DB.hist.slice(0, 10).map(h => `
+      <div class="card" style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:20px;font-weight:700;color:${h.score >= 90 ? 'var(--green)' : 'var(--red)'};font-variant-numeric:tabular-nums;min-width:46px">${h.score}</div>
+        <div style="flex:1;font-size:12.5px;color:var(--ink-2)">${esc(h.date)} · 答对 ${h.correct}/${h.total}</div>
+        <div style="font-size:12px;color:var(--ink-3)">${mmss(h.dur)}</div>
+      </div>`).join('')}</div>`
+      : `<div class="card empty"><div class="big">暂无考试记录</div><div class="sub">首页点「模拟考试」开始</div></div>`}
+
+    <div class="section-title"><h2>数据</h2><span class="note">只存在这台设备上</span></div>
+    <button class="btn ghost" id="btnClear" style="width:100%">清空全部学习记录</button>
+  `;
+  $('#btnClear').onclick = () => askConfirm('清空全部学习记录？错题、收藏、进度和成绩都会删除，无法恢复。', () => {
+    DB = blankDB(); save(); toast('已清空'); goTab('stats');
+  });
+}
+
+// ================= 简易确认框 =================
+function askConfirm(text, onYes) {
+  const wrap = document.createElement('div');
+  wrap.className = 'modal on';
+  wrap.style.zIndex = 70;
+  wrap.innerHTML = `<div class="panel" style="border-radius:14px;margin:0 14px 25vh;padding:18px">
+    <div style="font-size:15px;line-height:1.6;margin-bottom:16px">${esc(text)}</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn ghost" style="flex:1" data-a="no">取消</button>
+      <button class="btn primary" style="flex:1" data-a="yes">确定</button>
+    </div>
+  </div>`;
+  document.body.appendChild(wrap);
+  const close = () => wrap.remove();
+  wrap.querySelector('[data-a="no"]').onclick = close;
+  wrap.querySelector('[data-a="yes"]').onclick = () => { close(); onYes(); };
+  wrap.onclick = e => { if (e.target === wrap) close(); };
+}
+// ================= 会话 =================
+function shuffle(a) {
+  a = a.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const idsOf = t => QS.filter(q => q.t === t).map(q => q.id);
+
+function startPractice(t) {
+  const ids = idsOf(t);
+  const p = Math.min(Math.max(0, (DB.pos && DB.pos[t]) || 0), Math.max(0, ids.length - 1));
+  startSession(ids, 'practice', TYPE_NAME[t] + ' · 顺序练习', 'home', p, t);
+  if (p > 0) toast('接着上次，从第 ' + (p + 1) + ' 题继续');
+}
+function startRandom() {
+  startSession(shuffle(QS.map(q => q.id)).slice(0, 50), 'practice', '随机练习');
+}
+function startExam() {
+  const ids = [
+    ...shuffle(idsOf('j')).slice(0, 30),
+    ...shuffle(idsOf('s')).slice(0, 50),
+    ...shuffle(idsOf('m')).slice(0, 20)
+  ];
+  startSession(ids, 'exam', '模拟考试');
+  S.left = 3600;
+  S.endAt = Date.now() + 3600e3;
+  S.timer = setInterval(() => {
+    S.left = Math.round((S.endAt - Date.now()) / 1000);
+    const el = $('#gaugeCnt');
+    if (el) el.textContent = mmss(S.left);
+    const clock = document.querySelector('.topbar .sub');
+    if (clock) clock.textContent = '剩余 ' + mmss(S.left);
+    if (S.left <= 0) { clearInterval(S.timer); S.timer = null; submitExam(true); }
+  }, 1000);
+}
+
+function startSession(ids, mode, label, origin, start, type) {
+  const list = ids.filter(id => MAP.get(id));
+  if (!list.length) { toast('这里还没有题目'); return; }
+  if (S && S.timer) { clearInterval(S.timer); S.timer = null; }
+  S = {
+    ids: list, mode, label, type: type || null,
+    idx: Math.min(Math.max(0, start || 0), list.length - 1),
+    sel: (start || 0) > 0 ? [] : [], answers: {}, submitted: {}, res: {}, recorded: {},
+    startTs: Date.now(), left: 0, endAt: null, timer: null, origin: origin || 'home'
+  };
+  VIEW = 'quiz';
+  setChrome({
+    title: mode === 'exam' ? '模拟考试' : (mode === 'review' ? '查看题目' : label),
+    sub: mode === 'exam' ? '剩余 60:00' : (mode === 'review' ? '已显示答案' : ''),
+    back: true, sheet: true, tab: false
+  });
+  if (mode === 'exam') $('#appSub').textContent = '剩余 60:00';
+  renderQuiz();
+}
+
+function cur() { return MAP.get(S.ids[S.idx]); }
+const isLocked = q => S.submitted[q.id];
+const selOf = id => (S.answers[id] ? S.answers[id].split('') : []);
+
+function goto(i) {
+  if (!S) return;
+  if (i < 0) return;
+  if (i >= S.ids.length) { finishPractice(); return; }
+  S.idx = i;
+  S.sel = selOf(S.ids[i]);
+  if (S.mode === 'practice') {
+    DB.last = { list: S.ids, idx: S.idx, label: S.label };
+    if (S.type && DB.pos) DB.pos[S.type] = S.idx;
+    save();
+  }
+  renderQuiz();
+}
+
+function record(q, ok) {
+  if (S.recorded[q.id]) return;
+  S.recorded[q.id] = true;
+  DB.stat[q.t].a++;
+  if (ok) DB.stat[q.t].c++;
+  if (!ok) DB.wrong[q.id] = (DB.wrong[q.id] || 0) + 1;
+  else if (DB.wrong[q.id]) delete DB.wrong[q.id];
+  save();
+}
+
+function submitPractice() {
+  const q = cur();
+  if (S.sel.length === 0) { toast('先选一个答案'); return; }
+  const got = S.sel.slice().sort().join('');
+  const ok = got === q.a;
+  const wasWrong = !!DB.wrong[q.id];
+  S.submitted[q.id] = true;
+  S.res[q.id] = ok;
+  S.answers[q.id] = got;
+  S.sel = got.split('');
+  record(q, ok);
+  renderQuiz();
+}
+
+function finishPractice() {
+  if (!S) return;
+  if (S.mode === 'exam') { submitExam(false); return; }
+  if (S.mode === 'practice' && S.type && DB.pos) {
+    DB.pos[S.type] = 0;
+    if (DB.last && DB.last.label === S.label) DB.last = null;
+    save();
+  }
+  const done = Object.keys(S.submitted).length;
+  const right = Object.values(S.res).filter(Boolean).length;
+  const pct = done ? Math.round(right / done * 100) : 0;
+  const meta = { mode: S.mode, done, right, pct, label: S.label, total: S.ids.length };
+  S = null;
+  VIEW = 'done';
+  setChrome({ title: '完成', sub: '', back: true, tab: false });
+  $('#view').innerHTML = `
+    <div class="result-hero">
+      ${done ? `<div class="score" style="font-size:40px">${right}<small> / ${done} 题</small></div>
+      <div class="tag2 ${pct >= 90 ? 'pass' : (pct >= 60 ? '' : 'fail')}">正确率 ${pct}%</div>`
+      : `<div class="score" style="font-size:26px">本组没有作答</div>
+      <div class="tag2">跳过的题目不计入正确率</div>`}
+      <div class="result-meta">
+        <div><div class="num">${meta.total}</div><div class="lab">本组题量</div></div>
+        <div><div class="num">${done - right}</div><div class="lab">本组答错</div></div>
+        <div><div class="num">${wrongIds().length}</div><div class="lab">错题累计</div></div>
+      </div>
+    </div>
+    <div class="section-title"><h2>接下来</h2></div>
+    <div class="modes">
+      <button class="mode" id="btnAgain">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
+        <div class="name">再练一组</div><div class="desc">同类型题目再来一遍</div>
+      </button>
+      <button class="mode" id="btnWrongGo">
+        <div class="ico" style="background:var(--red-soft);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></div>
+        <div class="name">去错题本</div><div class="desc">${wrongIds().length} 道待攻克</div>
+      </button>
+    </div>
+    <div style="margin-top:14px"><button class="btn ghost" id="btnHome" style="width:100%">返回首页</button></div>
+  `;
+  $('#btnAgain').onclick = () => { if (meta.mode === 'practice') startPractice(guessType(meta.label)); else goHome(); };
+  $('#btnWrongGo').onclick = () => goTab('wrong');
+  $('#btnHome').onclick = () => goHome();
+}
+function guessType(label) {
+  if (label.indexOf('判断') === 0) return 'j';
+  if (label.indexOf('单选') === 0) return 's';
+  if (label.indexOf('多选') === 0) return 'm';
+  return 's';
+}
+function resumeLast() {
+  const last = DB.last;
+  if (!last || !last.list || !last.list.length) { goHome(); return; }
+  const lb = last.label || '';
+  const t = lb.indexOf('判断') === 0 ? 'j' : lb.indexOf('单选') === 0 ? 's' : lb.indexOf('多选') === 0 ? 'm' : null;
+  if (t && last.list.length === idsOf(t).length) { startPractice(t); return; }
+  startSession(last.list, 'practice', last.label, 'home', last.idx);
+}
+
+// ================= 答题页 =================
+function renderQuiz() {
+  if (!S) { goHome(); return; }
+  const q = cur();
+  const locked = isLocked(q);
+  const n = S.ids.length;
+  const pos = S.idx + 1;
+  const answered = S.mode === 'exam' ? (S.answers[q.id] ? 1 : 0) : (locked ? 1 : 0);
+  const right = S.res[q.id] === true;
+  const showed = S.mode === 'review' || (S.mode === 'practice' && locked);
+  const pct = Math.round(pos / n * 100);
+
+  $('#appTitle').textContent = S.mode === 'exam' ? '模拟考试' : (S.mode === 'review' ? '查看题目' : S.label);
+  $('#appSub').textContent = S.mode === 'exam' ? '剩余 ' + mmss(S.left) : (S.mode === 'review' ? '已显示答案' : '第 ' + pos + ' 题');
+
+  let body = '';
+  if (q.t === 'j') {
+    const sel = S.sel[0];
+    const keys = ['√', '×'];
+    body = `<div class="judge-opts">${keys.map(k => {
+      let cls = '';
+      if (!showed) cls = sel === k ? ' sel' : '';
+      else {
+        if (q.a === k) cls = ' right';
+        else if (sel === k) cls = ' wrong';
+      }
+      return `<button class="jopt${cls}" data-k="${k}">
+        <span class="mk">${k}</span><span>${k === '√' ? '正确' : '错误'}</span>
+      </button>`;
+    }).join('')}</div>`;
+  } else {
+    body = `<div class="opts">${q.o.map((txt, i) => {
+      const k = 'ABCDE'[i];
+      let cls = '';
+      if (!showed) cls = S.sel.indexOf(k) >= 0 ? ' sel' : '';
+      else {
+        const inAns = q.a.indexOf(k) >= 0;
+        const picked = S.sel.indexOf(k) >= 0;
+        if (inAns && picked) cls = ' right';
+        else if (inAns) cls = ' miss';
+        else if (picked) cls = ' wrong';
+      }
+      return `<button class="opt${cls}" data-k="${k}">
+        <span class="key">${k}</span><span>${esc(txt)}</span>
+      </button>`;
+    }).join('')}</div>`;
+  }
+
+  let verdict = '';
+  if (showed) {
+    if (S.mode === 'review') {
+      verdict = `<div class="verdict tip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16v-5M12 8h.01"/></svg>
+        <span>正确答案：<b>${q.a}</b>${q.t === 'j' ? (q.a === '√' ? '（正确）' : '（错误）') : ''}</span></div>`;
+    } else if (right) {
+      verdict = `<div class="verdict ok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+        <span>答对了</span></div>`;
+    } else {
+      verdict = `<div class="verdict no">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        <span>答错了，正确答案：<b>${q.a}</b>${q.t === 'j' ? (q.a === '√' ? '（正确）' : '（错误）') : ''}</span></div>`;
+    }
+  }
+
+  const fav = DB.fav[q.id];
+  const actions = [];
+  if (S.idx > 0) actions.push(`<button class="btn ghost" id="btnPrev">上一题</button>`);
+  if (S.mode === 'exam') {
+    if (S.idx < n - 1) actions.push(`<button class="btn primary" id="btnNext">下一题</button>`);
+    actions.push(`<button class="btn ${S.idx < n - 1 ? 'ghost' : 'primary'}" id="btnHand">交卷</button>`);
+  } else if (S.mode === 'review') {
+    actions.push(`<button class="btn primary" id="btnNext">${S.idx < n - 1 ? '下一题' : '完成'}</button>`);
+  } else {
+    if (!locked && q.t === 'm') {
+      actions.push(`<button class="btn primary" id="btnSubmit" ${S.sel.length ? '' : 'disabled'}>确认答案</button>`);
+    } else if (!locked) {
+      actions.push(`<button class="btn primary" id="btnSubmit" ${S.sel.length ? '' : 'disabled'}>确认答案</button>`);
+    } else {
+      actions.push(`<button class="btn primary" id="btnNext">${S.idx < n - 1 ? '下一题' : '完成练习'}</button>`);
+    }
+  }
+
+  $('#view').innerHTML = `
+    <div class="gauge">
+      <div class="track">
+        <div class="fill" style="width:${pct}%"></div>
+        <div class="ticks"></div>
+        <div class="needle" style="left:calc(${pct}% - 1px)"></div>
+      </div>
+      <div class="cnt" id="gaugeCnt">${S.mode === 'exam' ? mmss(S.left) : pos + ' / ' + n}</div>
+    </div>
+
+    <div class="qhead">
+      <span class="badge ${q.t === 's' ? 's' : ''}">${TYPE_NAME[q.t]}</span>
+      <span class="qno">${S.mode === 'exam' ? '本次考卷第 ' + pos + ' 题' : '题库第 ' + q.n + ' 题'}</span>
+      <div class="spacer"></div>
+      <button class="iconbtn" id="btnFav" aria-label="收藏" style="color:${fav ? '#B58700' : 'var(--ink-3)'}">
+        <svg viewBox="0 0 24 24" fill="${fav ? '#F2B322' : 'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m12 4 2.4 5 5.6.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.6-.8z"/></svg>
+      </button>
+    </div>
+
+    <div class="qcard">
+      <div class="stem">${esc(q.s)}</div>
+      ${body}
+      ${verdict}
+    </div>
+
+    <div class="actions">${actions.join('')}</div>
+  `;
+
+  $('#btnFav').onclick = () => {
+    if (DB.fav[q.id]) { delete DB.fav[q.id]; toast('已取消收藏'); }
+    else { DB.fav[q.id] = 1; toast('已收藏'); }
+    save(); renderQuiz();
+  };
+  document.querySelectorAll('.opt, .jopt').forEach(el => {
+    el.onclick = () => pick(el.dataset.k);
+  });
+  const b = id => document.getElementById(id);
+  if (b('btnPrev')) b('btnPrev').onclick = () => goto(S.idx - 1);
+  if (b('btnNext')) b('btnNext').onclick = () => {
+    if (S.mode === 'review') { S.idx + 1 < n ? goto(S.idx + 1) : (function(){ const cnt = S; S = null; VIEW='home'; setChrome({title:'电工考证刷题',sub:'电工竞赛项目理论知识题库'}); renderHome(); })(); }
+    else goto(S.idx + 1);
+  };
+  if (b('btnSubmit')) b('btnSubmit').onclick = () => S.mode === 'exam' ? saveExamAnswer() : submitPractice();
+  if (b('btnHand')) b('btnHand').onclick = () => {
+    const un = S.ids.filter(id => !S.answers[id]).length;
+    askConfirm(un ? `还有 ${un} 题没答，确定交卷？` : '确定交卷？', () => submitExam(false));
+  };
+}
+
+function pick(k) {
+  if (!S || !MAP.get(S.ids[S.idx])) return;
+  const q = cur();
+  if (S.mode === 'review') return;
+  if (S.mode === 'exam') {
+    if (q.t === 'm') {
+      const cur2 = selOf(q.id);
+      const i = cur2.indexOf(k);
+      if (i >= 0) cur2.splice(i, 1); else cur2.push(k);
+      S.answers[q.id] = cur2.sort().join('');
+      S.sel = selOf(q.id);
+    } else {
+      S.answers[q.id] = k;
+      S.sel = [k];
+    }
+    renderQuiz();
+    return;
+  }
+  const locked = isLocked(q);
+  if (locked) return;
+  if (q.t === 'm') {
+    const i = S.sel.indexOf(k);
+    if (i >= 0) S.sel.splice(i, 1); else S.sel.push(k);
+    S.sel.sort();
+    renderQuiz();
+    return;
+  }
+  S.sel = [k];
+  submitPractice();
+}
+
+function saveExamAnswer() {
+  const q = cur();
+  if (!S.answers[q.id]) { toast('先选一个答案'); return; }
+  goto(S.idx + 1);
+}
+
+// ================= 交卷 =================
+function submitExam(byTimeout) {
+  if (!S) return;
+  const { ids, mode, startTs } = S;
+  let correct = 0;
+  const per = { j: { c: 0, t: 0 }, s: { c: 0, t: 0 }, m: { c: 0, t: 0 } };
+  const wrongNow = [];
+  ids.forEach(id => {
+    const q = MAP.get(id);
+    per[q.t].t++;
+    const got = S.answers[id] || '';
+    const ok = got === q.a;
+    if (ok) { correct++; per[q.t].c++; }
+    else {
+      wrongNow.push(id);
+      DB.wrong[id] = (DB.wrong[id] || 0) + 1;
+      DB.stat[q.t].a++;
+    }
+    if (ok) { DB.stat[q.t].a++; DB.stat[q.t].c++; }
+  });
+  const total = ids.length;
+  const score = Math.round(correct / total * 100);
+  const dur = Math.min(3600, Math.round((Date.now() - startTs) / 1000));
+  DB.hist.unshift({
+    date: new Date().toLocaleString('zh-CN', { hour12: false }).slice(0, 16),
+    score, correct, total, dur
+  });
+  DB.hist = DB.hist.slice(0, 30);
+  save();
+  if (S.timer) { clearInterval(S.timer); S.timer = null; }
+  S = null;
+  VIEW = 'result';
+  setChrome({ title: '考试结果', sub: byTimeout ? '时间到，已自动交卷' : '', back: true, tab: false });
+  renderResult({ score, correct, total, dur, per, wrongNow, byTimeout });
+}
+
+function renderResult(r) {
+  const pass = r.score >= 90;
+  const types = ['j', 's', 'm'].map(t => {
+    const p = r.per[t];
+    const pct = p.t ? p.c / p.t * 100 : 0;
+    return `<div class="bar-row">
+      <div class="lab"><span>${TYPE_NAME[t]}</span><b>${p.c} / ${p.t}</b></div>
+      <div class="track"><i class="${pct >= 90 ? 'g' : (pct >= 60 ? '' : 'y')}" style="width:${pct}%"></i></div>
+    </div>`;
+  }).join('');
+
+  $('#view').innerHTML = `
+    <div class="result-hero">
+      <div class="score">${r.score}<small> 分</small></div>
+      <div class="tag2 ${pass ? 'pass' : 'fail'}">${pass ? '及格 · 保持这个状态' : '未及格 · 还差 ' + (90 - r.score) + ' 分'}</div>
+      <div class="result-meta">
+        <div><div class="num">${r.correct} / ${r.total}</div><div class="lab">答对题数</div></div>
+        <div><div class="num">${mmss(r.dur)}</div><div class="lab">考试用时</div></div>
+        <div><div class="num">${r.total - r.correct}</div><div class="lab">答错题数</div></div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>分题型表现</h2><span class="note">每题 1 分</span></div>
+    <div class="card"><div class="bars">${types}</div></div>
+
+    <div class="section-title"><h2>错题回顾</h2><span class="note">${r.wrongNow.length} 道，已存入错题本</span></div>
+    ${r.wrongNow.length ? `<div class="rows">${r.wrongNow.slice(0, 8).map(id => {
+      const q = MAP.get(id);
+      return `<button class="row" data-id="${id}">
+        <div class="txt">
+          <div class="meta"><span class="tag">${TYPE_NAME[q.t]}</span><span class="no">第 ${q.n} 题</span><span class="no">正确 ${q.a}</span></div>
+          <div class="stemtxt">${esc(q.s)}</div>
+        </div>
+        <div class="side"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></div>
+      </button>`;
+    }).join('')}${r.wrongNow.length > 8 ? `<div class="card" style="text-align:center;font-size:12.5px;color:var(--ink-3)">还有 ${r.wrongNow.length - 8} 道在错题本里</div>` : ''}</div>`
+      : `<div class="card" style="text-align:center;font-size:13px;color:var(--green)">全部答对，这轮没有错题</div>`}
+
+    <div class="modes" style="margin-top:16px">
+      <button class="mode" id="btnExamAgain"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div><div class="name">再考一次</div><div class="desc">重新抽题，60 分钟</div></button>
+      <button class="mode" id="btnWrongRedo"><div class="ico" style="background:var(--red-soft);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></div><div class="name">重做错题</div><div class="desc">${wrongIds().length} 道待攻克</div></button>
+    </div>
+    <div style="margin-top:14px"><button class="btn ghost" id="btnHome2" style="width:100%">返回首页</button></div>
+  `;
+  $('#btnExamAgain').onclick = () => startExam();
+  $('#btnWrongRedo').onclick = () => wrongIds().length ? startSession(wrongIds(), 'practice', '错题重做', 'wrong') : toast('错题本是空的');
+  $('#btnHome2').onclick = () => goHome();
+  document.querySelectorAll('.row').forEach(el => el.onclick = () => startSession([el.dataset.id], 'review', '错题查看', 'wrong'));
+}
+
+// ================= 答题卡 =================
+function openSheet() {
+  if (!S) return;
+  const grid = $('#sheetGrid');
+  grid.innerHTML = S.ids.map((id, i) => {
+    const q = MAP.get(id);
+    let cls = '';
+    if (S.mode === 'exam') {
+      if (S.answers[id]) cls = 'on';
+    } else if (S.mode === 'review') {
+      cls = '';
+    } else {
+      if (S.submitted[id]) cls = S.res[id] ? 'ok' : 'bad';
+    }
+    if (i === S.idx) cls += ' now';
+    return `<button class="cell ${cls}" data-i="${i}">${i + 1}</button>`;
+  }).join('');
+  $('#modalCount').textContent = S.mode === 'exam'
+    ? `已答 ${S.ids.filter(id => S.answers[id]).length} / ${S.ids.length}`
+    : `第 ${S.idx + 1} / ${S.ids.length} 题`;
+  $('#modal').classList.add('on');
+  grid.querySelectorAll('.cell').forEach(c => c.onclick = () => {
+    $('#modal').classList.remove('on');
+    goto(parseInt(c.dataset.i, 10));
+  });
+}
+
+// ================= 初始化与事件 =================
+$('#btnBack').onclick = () => {
+  if (!S && VIEW === 'wrong' && WRONG_T) { goTab('wrong'); return; }
+  if (!S && VIEW === 'fav' && FAV_T) { goTab('fav'); return; }
+  if (S && S.mode === 'exam') {
+    askConfirm('正在考试，返回会放弃本次成绩，确定退出？', () => { if (S.timer) clearInterval(S.timer); S = null; goHome(); });
+    return;
+  }
+  if (S && S.mode === 'review') { const o = S.origin; S = null; goTab(o); return; }
+  if (S && S.mode === 'practice') { S = null; }
+  goHome();
+};
+$('#btnSheet').onclick = openSheet;
+$('#modalClose').onclick = () => $('#modal').classList.remove('on');
+$('#modal').onclick = e => { if (e.target.id === 'modal') $('#modal').classList.remove('on'); };
+$('#btnReset').onclick = () => askConfirm('清空全部学习记录？错题、收藏、进度和成绩都会删除，无法恢复。', () => {
+  DB = blankDB(); save(); toast('已清空'); goTab('stats');
+});
+document.querySelectorAll('#tabbar button').forEach(b => {
+  b.onclick = () => {
+    if (S && S.mode === 'exam') {
+      askConfirm('正在考试，离开会放弃本次成绩，确定？', () => { if (S.timer) clearInterval(S.timer); S = null; goTab(b.dataset.tab); });
+      return;
+    }
+    if (S && S.timer) { clearInterval(S.timer); S = null; }
+    goTab(b.dataset.tab);
+  };
+});
+document.addEventListener('keydown', e => {
+  if (!S || !MAP.get(S.ids[S.idx])) return;
+  if (e.key === 'ArrowLeft') { if (S.idx > 0) goto(S.idx - 1); return; }
+  if (e.key === 'ArrowRight') { goto(S.idx + 1); return; }
+  if (e.key === 'Enter') {
+    if (S.mode === 'exam') { S.idx < S.ids.length - 1 ? goto(S.idx + 1) : submitExam(false); }
+    else if (!isLocked(cur())) submitPractice();
+    else goto(S.idx + 1);
+    return;
+  }
+  const map = { a: 'A', b: 'B', c: 'C', d: 'D', e: 'E' };
+  const k = map[e.key.toLowerCase()];
+  if (k) {
+    const q = cur();
+    if (q.t === 'j') { if (k === 'A') pick('√'); if (k === 'B') pick('×'); return; }
+    if (k.charCodeAt(0) - 65 < q.o.length) pick(k);
+  }
+});
+
+goHome();
+if (!storageOK) setTimeout(() => toast('当前打开方式无法保存进度，换用浏览器打开更稳妥'), 800);
+</script>
+</body>
+</html>

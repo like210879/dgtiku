@@ -1,0 +1,14 @@
+{
+  "name": "dgtiku",
+  "version": "1.0.0",
+  "private": true,
+  "description": "电工考证刷题 iOS 壳",
+  "dependencies": {
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/assets": "^3.0.5"
+  }
+}
